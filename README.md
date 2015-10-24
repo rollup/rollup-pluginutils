@@ -12,9 +12,24 @@ npm install --save rollup-pluginutils
 
 ## Usage
 
-### createFilter
+### addExtension
 
-So far, this is the only exported function.
+```js
+import { addExtension } from 'rollup-pluginutils';
+
+export default function myPlugin ( options = {} ) {
+  return {
+    resolveId ( code, id ) {
+      // only adds an extension if there isn't one already
+      id = addExtension( id ); // `foo` -> `foo.js`, `foo.js -> foo.js`
+      id = addExtension( id, '.myext' ); // `foo` -> `foo.myext`, `foo.js -> `foo.js`
+    }
+  };
+}
+```
+
+
+### createFilter
 
 ```js
 import { createFilter } from 'rollup-pluginutils';
