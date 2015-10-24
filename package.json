@@ -1,0 +1,23 @@
+{
+  "name": "rollup-pluginutils",
+  "description": "Functionality commonly needed by Rollup plugins",
+  "version": "1.0.0",
+  "main": "dist/pluginutils.cjs.js",
+  "jsnext:main": "dist/pluginutils.es6.js",
+  "devDependencies": {
+    "eslint": "^1.7.3",
+    "gobble": "^0.10.2",
+    "gobble-cli": "^0.6.0",
+    "gobble-rollup-babel": "^0.6.1",
+    "mocha": "^2.3.3"
+  },
+  "scripts": {
+    "test": "mocha",
+    "build": "gobble build -f dist",
+    "pretest": "npm run build",
+    "prepublish": "npm test"
+  },
+  "dependencies": {
+    "minimatch": "^3.0.0"
+  }
+}
