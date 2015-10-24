@@ -14,7 +14,7 @@ npm install --save rollup-pluginutils
 
 ### createFilter
 
-So far, this is the only exported function so far.
+So far, this is the only exported function.
 
 ```js
 import { createFilter } from 'rollup-pluginutils';
