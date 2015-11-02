@@ -52,4 +52,57 @@ describe( 'rollup-pluginutils', function () {
 			assert.equal( addExtension( 'foo.lol', '.wut' ), 'foo.lol' );
 		});
 	});
+
+	describe( 'attachScopes', function () {
+		var attachScopes = utils.attachScopes;
+
+		it( 'attaches a scope to the top level', function () {
+			var ast = {
+				"type": "Program",
+				"start": 0,
+				"end": 10,
+				"body": [
+					{
+						"type": "VariableDeclaration",
+						"start": 0,
+						"end": 8,
+						"declarations": [
+							{
+								"type": "VariableDeclarator",
+								"start": 4,
+								"end": 7,
+								"id": {
+									"type": "Identifier",
+									"start": 4,
+									"end": 7,
+									"name": "foo"
+								},
+								"init": null
+							}
+						],
+						"kind": "var"
+					}
+				],
+				"sourceType": "module"
+			};
+
+			var scope = attachScopes( ast, 'scope' );
+			assert.ok( scope.contains( 'foo' ) );
+			assert.ok( !scope.contains( 'bar' ) );
+		});
+
+		// TODO more tests
+	});
+
+	describe( 'makeLegalIdentifier', function () {
+		var makeLegalIdentifier = utils.makeLegalIdentifier;
+
+		it( 'camel-cases names', function () {
+			assert.equal( makeLegalIdentifier( 'foo-bar' ), 'fooBar' );
+		});
+
+		it( 'replaces keywords', function () {
+			assert.equal( makeLegalIdentifier( 'typeof' ), '_typeof' );
+		});
+	});
 });
