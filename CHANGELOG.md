@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 1.2.0
+
+* Add `attachScopes` and `makeLegalIdentifier`
+
 ## 1.1.0
 
 * Add `addExtension` function
