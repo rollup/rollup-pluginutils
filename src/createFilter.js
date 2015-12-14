@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { resolve, sep } from 'path';
 import { makeRe } from 'minimatch';
 import ensureArray from './utils/ensureArray';
 
@@ -8,6 +8,7 @@ export default function createFilter ( include, exclude ) {
 
 	return function ( id ) {
 		var included = !include.length;
+		id = id.split(sep).join('/');
 
 		include.forEach( pattern => {
 			if ( pattern.test( id ) ) included = true;
