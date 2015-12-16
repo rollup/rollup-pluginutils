@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 1.3.0
+
+* Use correct path separator on Windows
+
 ## 1.2.0
 
 * Add `attachScopes` and `makeLegalIdentifier`
