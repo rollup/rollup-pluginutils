@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 1.3.1
+
+* Build with Rollup directly, rather than via Gobble
+
 ## 1.3.0
 
 * Use correct path separator on Windows
