@@ -26,5 +26,19 @@
     "src",
     "dist",
     "README.md"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rollup/rollup-pluginutils.git"
+  },
+  "keywords": [
+    "rollup",
+    "utils"
+  ],
+  "author": "Rich Harris <richard.a.harris@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rollup/rollup-pluginutils/issues"
+  },
+  "homepage": "https://github.com/rollup/rollup-pluginutils#readme"
 }
