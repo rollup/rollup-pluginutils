@@ -28,6 +28,12 @@ describe( 'rollup-pluginutils', function () {
 			assert.ok( filter( path.resolve( 'foo/bar' ) ) );
 			assert.ok( !filter( path.resolve( 'foo/baz' ) ) );
 		});
+
+		it( 'negation patterns', function () {
+			var filter = createFilter([ 'a/!(b)/c' ]);
+			assert.ok( filter( path.resolve( 'a/d/c' ) ) );
+			assert.ok( !filter( path.resolve( 'a/b/c' ) ) );
+		});
 	});
 
 	describe( 'addExtension', function () {
