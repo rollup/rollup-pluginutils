@@ -1,5 +1,10 @@
 # rollup-pluginutils changelog
 
+## 1.4.0
+
+* Workaround minimatch issue ([#6](https://github.com/rollup/rollup-pluginutils/pull/6))
+* Exclude non-string IDs in `createFilter`
+
 ## 1.3.1
 
 * Build with Rollup directly, rather than via Gobble
