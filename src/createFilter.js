@@ -1,21 +1,21 @@
 import { resolve, sep } from 'path';
-import { makeRe } from 'minimatch';
+import { Minimatch } from 'minimatch';
 import ensureArray from './utils/ensureArray';
 
 export default function createFilter ( include, exclude ) {
-	include = ensureArray( include ).map( id => resolve( id ) ).map( makeRe );
-	exclude = ensureArray( exclude ).map( id => resolve( id ) ).map( makeRe );
+	include = ensureArray( include ).map( id => resolve( id ) ).map( id => new Minimatch(id) );
+	exclude = ensureArray( exclude ).map( id => resolve( id ) ).map( id => new Minimatch(id) );
 
 	return function ( id ) {
 		var included = !include.length;
 		id = id.split(sep).join('/');
 
-		include.forEach( pattern => {
-			if ( pattern.test( id ) ) included = true;
+		include.forEach( minimatch => {
+			if ( minimatch.match( id ) ) included = true;
 		});
 
-		exclude.forEach( pattern => {
-			if ( pattern.test( id ) ) included = false;
+		exclude.forEach( minimatch => {
+			if ( minimatch.match( id ) ) included = false;
 		});
 
 		return included;
