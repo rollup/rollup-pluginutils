@@ -7,6 +7,8 @@ export default function createFilter ( include, exclude ) {
 	exclude = ensureArray( exclude ).map( id => resolve( id ) ).map( id => new Minimatch(id) );
 
 	return function ( id ) {
+		if ( typeof id !== 'string' ) return false;
+
 		var included = !include.length;
 		id = id.split(sep).join('/');
 

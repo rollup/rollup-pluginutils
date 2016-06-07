@@ -34,6 +34,11 @@ describe( 'rollup-pluginutils', function () {
 			assert.ok( filter( path.resolve( 'a/d/c' ) ) );
 			assert.ok( !filter( path.resolve( 'a/b/c' ) ) );
 		});
+
+		it( 'excludes non-string IDs', function () {
+			var filter = createFilter( null, null );
+			assert.ok( !filter({}) );
+		});
 	});
 
 	describe( 'addExtension', function () {
