@@ -5,10 +5,10 @@
   "main": "dist/pluginutils.cjs.js",
   "jsnext:main": "dist/pluginutils.es6.js",
   "devDependencies": {
-    "eslint": "^1.8.0",
-    "mocha": "^2.3.3",
-    "rollup": "^0.21.2",
-    "rollup-plugin-babel": "^1.0.0"
+    "eslint": "^2.11.1",
+    "mocha": "^2.5.3",
+    "rollup": "^0.26.7",
+    "rollup-plugin-buble": "^0.10.0"
   },
   "scripts": {
     "test": "mocha",
@@ -17,7 +17,7 @@
     "prepublish": "npm test"
   },
   "dependencies": {
-    "estree-walker": "^0.2.0",
+    "estree-walker": "^0.2.1",
     "minimatch": "^3.0.0"
   },
   "files": [

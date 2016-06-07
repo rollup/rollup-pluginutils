@@ -9,7 +9,7 @@ export default function createFilter ( include, exclude ) {
 	return function ( id ) {
 		if ( typeof id !== 'string' ) return false;
 
-		var included = !include.length;
+		let included = !include.length;
 		id = id.split(sep).join('/');
 
 		include.forEach( minimatch => {
