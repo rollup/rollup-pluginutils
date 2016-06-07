@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 1.5.0
+
+* Exclude IDs with null character (`\0`)
+
 ## 1.4.0
 
 * Workaround minimatch issue ([#6](https://github.com/rollup/rollup-pluginutils/pull/6))
