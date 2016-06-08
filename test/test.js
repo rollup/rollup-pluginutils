@@ -44,6 +44,12 @@ describe( 'rollup-pluginutils', function () {
 			var filter = createFilter( null, null );
 			assert.ok( !filter( '\0someid' ) );
 		});
+
+		it( 'excludes placeholder', function () {
+			var entry = 'rollup-plugin-multi-entry:entry-point';
+			var filter = createFilter( null, entry );
+			assert.ok( !filter( entry ) );
+		});
 	});
 
 	describe( 'addExtension', function () {
