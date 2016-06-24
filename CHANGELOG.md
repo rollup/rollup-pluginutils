@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 1.4.1
+
+* Add all declarators in a var declaration to scope, not just the first
+
 ## 1.4.0
 
 * Workaround minimatch issue ([#6](https://github.com/rollup/rollup-pluginutils/pull/6))
