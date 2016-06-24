@@ -71,7 +71,7 @@ describe( 'rollup-pluginutils', function () {
 			var ast = {
 				"type": "Program",
 				"start": 0,
-				"end": 10,
+				"end": 8,
 				"body": [
 					{
 						"type": "VariableDeclaration",
@@ -100,6 +100,54 @@ describe( 'rollup-pluginutils', function () {
 			var scope = attachScopes( ast, 'scope' );
 			assert.ok( scope.contains( 'foo' ) );
 			assert.ok( !scope.contains( 'bar' ) );
+		});
+
+		it( 'adds multiple declarators from a single var declaration', function () {
+			var ast = {
+				"type": "Program",
+				"start": 0,
+				"end": 13,
+				"body": [
+					{
+						"type": "VariableDeclaration",
+						"start": 0,
+						"end": 13,
+						"declarations": [
+							{
+								"type": "VariableDeclarator",
+								"start": 4,
+								"end": 7,
+								"id": {
+									"type": "Identifier",
+									"start": 4,
+									"end": 7,
+									"name": "foo"
+								},
+								"init": null
+							},
+
+							{
+								"type": "VariableDeclarator",
+								"start": 9,
+								"end": 12,
+								"id": {
+									"type": "Identifier",
+									"start": 9,
+									"end": 12,
+									"name": "bar"
+								},
+								"init": null
+							}
+						],
+						"kind": "var"
+					}
+				],
+				"sourceType": "module"
+			};
+
+			var scope = attachScopes( ast, 'scope' );
+			assert.ok( scope.contains( 'foo' ) );
+			assert.ok( scope.contains( 'bar' ) );
 		});
 
 		// TODO more tests
