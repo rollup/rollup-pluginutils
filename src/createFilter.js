@@ -8,6 +8,7 @@ export default function createFilter ( include, exclude ) {
 
 	return function ( id ) {
 		if ( typeof id !== 'string' ) return false;
+		if ( /\0/.test( id ) ) return false;
 
 		let included = !include.length;
 		id = id.split(sep).join('/');

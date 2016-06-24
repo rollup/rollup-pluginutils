@@ -39,6 +39,11 @@ describe( 'rollup-pluginutils', function () {
 			var filter = createFilter( null, null );
 			assert.ok( !filter({}) );
 		});
+
+		it( 'excludes strings beginning with NUL', function () {
+			var filter = createFilter( null, null );
+			assert.ok( !filter( '\0someid' ) );
+		});
 	});
 
 	describe( 'addExtension', function () {

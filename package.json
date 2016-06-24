@@ -1,7 +1,7 @@
 {
   "name": "rollup-pluginutils",
   "description": "Functionality commonly needed by Rollup plugins",
-  "version": "1.4.1",
+  "version": "1.5.1",
   "main": "dist/pluginutils.cjs.js",
   "jsnext:main": "dist/pluginutils.es6.js",
   "devDependencies": {

@@ -1,8 +1,12 @@
 # rollup-pluginutils changelog
 
-## 1.4.1
+## 1.5.1
 
 * Add all declarators in a var declaration to scope, not just the first
+
+## 1.5.0
+
+* Exclude IDs with null character (`\0`)
 
 ## 1.4.0
 
