@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 1.5.2
+
+* Treat `arguments` as a reserved word ([#10](https://github.com/rollup/rollup-pluginutils/issues/10))
+
 ## 1.5.1
 
 * Add all declarators in a var declaration to scope, not just the first
