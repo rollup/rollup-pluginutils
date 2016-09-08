@@ -3,7 +3,11 @@
   "description": "Functionality commonly needed by Rollup plugins",
   "version": "1.5.2",
   "main": "dist/pluginutils.cjs.js",
-  "jsnext:main": "dist/pluginutils.es6.js",
+  "module": "dist/pluginutils.es.js",
+  "jsnext:main": "dist/pluginutils.es.js",
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "eslint": "^2.13.1",
     "mocha": "^2.5.3",
@@ -12,7 +16,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "build": "rollup -c -f cjs -o dist/pluginutils.cjs.js && rollup -c -f es6 -o dist/pluginutils.es6.js",
+    "build": "rollup -c",
     "pretest": "npm run build",
     "prepublish": "npm test"
   },
