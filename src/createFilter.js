@@ -3,24 +3,47 @@ import { Minimatch } from 'minimatch';
 import ensureArray from './utils/ensureArray';
 
 export default function createFilter ( include, exclude ) {
-	include = ensureArray( include ).map( id => resolve( id ) ).map( id => new Minimatch(id) );
-	exclude = ensureArray( exclude ).map( id => resolve( id ) ).map( id => new Minimatch(id) );
+	include = ensureArray( include ).map( id => isRegexp( id ) ? id : new Minimatch( resolve( id ) ) );
+	exclude = ensureArray( exclude ).map( id => isRegexp( id ) ? id : new Minimatch( resolve( id ) ) );
 
 	return function ( id ) {
+
 		if ( typeof id !== 'string' ) return false;
 		if ( /\0/.test( id ) ) return false;
 
-		let included = !include.length;
 		id = id.split(sep).join('/');
 
-		include.forEach( minimatch => {
-			if ( minimatch.match( id ) ) included = true;
-		});
+		let minimatch
+		for ( let i = 0; i < exclude.length; ++i ) {
+			minimatch = exclude[i]
+			if ( isRegexp(minimatch) ) {
+				if ( minimatch.test(id) ) {
+					return false
+				}
+				continue
+			}
+			if ( minimatch.match( id ) ) {
+				return false
+			}
+		}
 
-		exclude.forEach( minimatch => {
-			if ( minimatch.match( id ) ) included = false;
-		});
+		for ( let i = 0; i < include.length; ++i ) {
+			minimatch = include[i]
+			if ( isRegexp(minimatch) ) {
+				if ( minimatch.test(id) ) {
+					return true
+				}
+				continue
+			}
+			if ( minimatch.match( id ) ) {
+				return true
+			}
+		}
 
-		return included;
+		return !include.length
 	};
+}
+
+function isRegexp ( val ) {
+	return val instanceof RegExp
 }
