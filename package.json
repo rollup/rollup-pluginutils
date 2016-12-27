@@ -29,10 +29,7 @@
     "dist",
     "README.md"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rollup/rollup-pluginutils.git"
-  },
+  "repository": "rollup/rollup-pluginutils",
   "keywords": [
     "rollup",
     "utils"
