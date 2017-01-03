@@ -44,6 +44,24 @@ describe( 'rollup-pluginutils', function () {
 			var filter = createFilter( null, null );
 			assert.ok( !filter( '\0someid' ) );
 		});
+
+		it( 'includes with regexp', function () {
+			var filter = createFilter(['a/!(b)/c' , /\.js$/ ]);
+			assert.ok( filter( path.resolve( 'a/d/c' ) ) );
+			assert.ok( !filter( path.resolve( 'a/b/c' ) ) );
+			assert.ok( filter( path.resolve( 'a.js' ) ) );
+			assert.ok( filter( path.resolve( 'a/b.js' ) ) );
+			assert.ok( !filter( path.resolve( 'a/b.jsx' ) ) );
+		})
+
+		it ('excludes with regexp', function () {
+			var filter = createFilter(['a/!(b)/c' , /\.js$/ ], /\.js$/);
+			assert.ok( filter( path.resolve( 'a/d/c' ) ) );
+			assert.ok( !filter( path.resolve( 'a/b/c' ) ) );
+			assert.ok( !filter( path.resolve( 'a.js' ) ) );
+			assert.ok( !filter( path.resolve( 'a/b.js' ) ) );
+			assert.ok( !filter( path.resolve( 'a/b.jsx' ) ) );
+		})
 	});
 
 	describe( 'addExtension', function () {
