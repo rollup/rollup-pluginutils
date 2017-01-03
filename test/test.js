@@ -76,6 +76,10 @@ describe( 'rollup-pluginutils', function () {
 			assert.equal( addExtension( 'foo.json' ), 'foo.json' );
 		});
 
+		it( 'ignores file with trailing dot', function () {
+			assert.equal( addExtension( 'foo.' ), 'foo.' );
+		});
+
 		it( 'ignores leading .', function () {
 			assert.equal( addExtension( './foo' ), './foo.js' );
 			assert.equal( addExtension( './foo.js' ), './foo.js' );
