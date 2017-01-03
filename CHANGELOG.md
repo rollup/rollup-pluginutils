@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 2.0.1
+
+* Don't add extension to file with trailing dot ([#14](https://github.com/rollup/rollup-pluginutils/issues/14))
+
 ## 2.0.0
 
 * Use `micromatch` instead of `minimatch` ([#19](https://github.com/rollup/rollup-pluginutils/issues/19))
