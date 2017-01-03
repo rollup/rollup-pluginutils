@@ -6,7 +6,9 @@
   "module": "dist/pluginutils.es.js",
   "jsnext:main": "dist/pluginutils.es.js",
   "files": [
-    "dist"
+    "src",
+    "dist",
+    "README.md"
   ],
   "devDependencies": {
     "eslint": "^2.13.1",
@@ -22,13 +24,8 @@
   },
   "dependencies": {
     "estree-walker": "^0.2.1",
-    "minimatch": "^3.0.2"
+    "micromatch": "^2.3.11"
   },
-  "files": [
-    "src",
-    "dist",
-    "README.md"
-  ],
   "repository": "rollup/rollup-pluginutils",
   "keywords": [
     "rollup",
