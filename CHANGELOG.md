@@ -1,5 +1,10 @@
 # rollup-pluginutils changelog
 
+## 2.0.0
+
+* Use `micromatch` instead of `minimatch` ([#19](https://github.com/rollup/rollup-pluginutils/issues/19))
+* Allow `createFilter` to take regexes ([#5](https://github.com/rollup/rollup-pluginutils/issues/5))
+
 ## 1.5.2
 
 * Treat `arguments` as a reserved word ([#10](https://github.com/rollup/rollup-pluginutils/issues/10))
