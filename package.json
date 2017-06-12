@@ -23,7 +23,7 @@
     "prepublish": "npm test"
   },
   "dependencies": {
-    "estree-walker": "^0.3.0",
+    "estree-walker": "^0.4.0",
     "micromatch": "^2.3.11"
   },
   "repository": "rollup/rollup-pluginutils",
