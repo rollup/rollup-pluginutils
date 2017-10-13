@@ -2,7 +2,7 @@ const reservedWords = 'break case class catch const continue debugger default de
 const builtins = 'arguments Infinity NaN undefined null true false eval uneval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Symbol Error EvalError InternalError RangeError ReferenceError SyntaxError TypeError URIError Number Math Date String RegExp Array Int8Array Uint8Array Uint8ClampedArray Int16Array Uint16Array Int32Array Uint32Array Float32Array Float64Array Map Set WeakMap WeakSet SIMD ArrayBuffer DataView JSON Promise Generator GeneratorFunction Reflect Proxy Intl'.split( ' ' );
 
 let blacklisted = Object.create( null );
-reservedWords.concat( builtins ).forEach( word => blacklisted[ word ] = true );
+reservedWords.concat( builtins ).concat( [ '' ] ).forEach( word => blacklisted[ word ] = true );
 
 export default function makeLegalIdentifier ( str ) {
 	str = str
