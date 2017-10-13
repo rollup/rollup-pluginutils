@@ -194,5 +194,9 @@ describe( 'rollup-pluginutils', function () {
 		it( 'blacklists arguments (https://github.com/rollup/rollup/issues/871)', function () {
 			assert.equal( makeLegalIdentifier( 'arguments' ), '_arguments' );
 		});
+
+		it( 'blacklists empty string', function () {
+			assert.equal( makeLegalIdentifier( '' ), '_' );
+		});
 	});
 });
