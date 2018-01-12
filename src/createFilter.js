@@ -13,16 +13,20 @@ export default function createFilter ( include, exclude ) {
 		if ( /\0/.test( id ) ) return false;
 
 		id = id.split( sep ).join( '/' );
+		
+		let keep = undefined;
 
 		for ( let i = 0; i < exclude.length; ++i ) {
 			const matcher = exclude[i];
-			if ( matcher.test( id ) ) return false;
+			if ( matcher.test( id ) ) keep = false;
 		}
 
 		for ( let i = 0; i < include.length; ++i ) {
 			const matcher = include[i];
-			if ( matcher.test( id ) ) return true;
+			if ( matcher.test( id ) ) keep = true;
 		}
+		
+		if ( keep !== undefined ) return keep
 
 		return !include.length;
 	};
