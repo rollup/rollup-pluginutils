@@ -33,7 +33,7 @@ export default function myPlugin ( options = {} ) {
 
 This function attaches `Scope` objects to the relevant nodes of an AST. Each `Scope` object has a `scope.contains(name)` method that returns `true` if a given name is defined in the current scope or a parent scope.
 
-See [rollup-plugin-inject](https://github.com/rollup/rollup-plugin-inject) or [rollup-plugin-commonjs](https://github.com/rollup/rollup-plugin-inject) for an example of usage.
+See [rollup-plugin-inject](https://github.com/rollup/rollup-plugin-inject) or [rollup-plugin-commonjs](https://github.com/rollup/rollup-plugin-commonjs) for an example of usage.
 
 ```js
 import { attachScopes } from 'rollup-pluginutils';
