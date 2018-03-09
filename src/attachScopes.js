@@ -6,6 +6,10 @@ const blockDeclarations = {
 };
 
 const extractors = {
+	Literal ( names, param ) {
+		names.push( param.value );
+	},
+
 	Identifier ( names, param ) {
 		names.push( param.name );
 	},
