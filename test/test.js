@@ -447,16 +447,16 @@ describe( 'rollup-pluginutils', function () {
 		var dataToNamedExports = utils.dataToNamedExports;
 
 		it( 'outputs treeshakable data', function () {
-			assert.equal( dataToNamedExports({ some: 'data', another: 'data' }), `export const some = "data";\nexport const another = "data";\nexport default {\n  some,\n  another\n};` );
+			assert.equal( dataToNamedExports({ some: 'data', another: 'data' }), 'export const some = "data";\nexport const another = "data";\nexport default {\n  some,\n  another\n};' );
 		});
 
 		it( 'handles illegal identifiers', function () {
-			assert.equal( dataToNamedExports({ '1': 'data', 'default': 'data' }), `export const _1 = "data";\nexport const _default = "data";\nexport default {\n  '1': _1,\n  'default': _default\n};` );
+			assert.equal( dataToNamedExports({ '1': 'data', 'default': 'data' }), 'export const _1 = "data";\nexport const _default = "data";\nexport default {\n  \'1\': _1,\n  \'default\': _default\n};' );
 		});
 
 		it( 'supports non-JSON data', function () {
 			const date = new Date();
-			assert.equal( dataToNamedExports({ inf: Infinity, date }), `export const inf = Infinity;\nexport const date = new Date(${date.getTime()});\nexport default {\n  inf,\n  date\n};` );
+			assert.equal( dataToNamedExports({ inf: Infinity, date: date }), 'export const inf = Infinity;\nexport const date = new Date(' + date.getTime() + ');\nexport default {\n  inf,\n  date\n};' );
 		});
 	});
 });
