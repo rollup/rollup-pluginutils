@@ -16,7 +16,7 @@ const extractors = {
 
 	ObjectPattern ( names, param ) {
 		param.properties.forEach( prop => {
-			extractors[ prop.key.type ]( names, prop.key );
+			extractors[ (prop.value || prop.key).type ]( names, prop.value || prop.key );
 		});
 	},
 

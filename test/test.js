@@ -177,6 +177,135 @@ describe( 'rollup-pluginutils', function () {
 			assert.ok( scope.contains( 'bar' ) );
 		});
 
+		it('adds named declarators from a deconstructed declaration', function() {
+			var ast = {
+				"type": "Program",
+				"start": 0,
+				"end": 13,
+				"body": [
+					{
+						"type": "VariableDeclaration",
+						"start": 0,
+						"end": 42,
+						"declarations": [
+							{
+								"type": "VariableDeclarator",
+								"start": 4,
+								"end": 41,
+								"id": {
+								"type": "ObjectPattern",
+								"start": 4,
+								"end": 15,
+								"properties": [
+									{
+										"type": "Property",
+										"start": 6,
+										"end": 10,
+										"method": false,
+										"shorthand": false,
+										"computed": false,
+										"key": {
+											"type": "Literal",
+											"start": 6,
+											"end": 7,
+											"value": 1,
+											"raw": "1"
+										},
+										"value": {
+											"type": "Identifier",
+											"start": 9,
+											"end": 10,
+											"name": "a"
+										},
+										"kind": "init"
+									},
+									{
+										"type": "Property",
+										"start": 12,
+										"end": 13,
+										"method": false,
+										"shorthand": true,
+										"computed": false,
+										"key": {
+											"type": "Identifier",
+											"start": 12,
+											"end": 13,
+											"name": "b"
+										},
+										"kind": "init",
+										"value": {
+											"type": "Identifier",
+											"start": 12,
+											"end": 13,
+											"name": "b"
+										}
+									}
+								]},
+								"init": {
+									"type": "ObjectExpression",
+									"start": 18,
+									"end": 41,
+									"properties": [
+										{
+											"type": "Property",
+											"start": 22,
+											"end": 28,
+											"method": false,
+											"shorthand": false,
+											"computed": false,
+											"key": {
+												"type": "Literal",
+												"start": 22,
+												"end": 23,
+												"value": 1,
+												"raw": "1"
+											},
+											"value": {
+												"type": "Literal",
+												"start": 25,
+												"end": 28,
+												"value": "a",
+												"raw": "'a'"
+											},
+											"kind": "init"
+										},
+										{
+											"type": "Property",
+											"start": 32,
+											"end": 38,
+											"method": false,
+											"shorthand": false,
+											"computed": false,
+											"key": {
+												"type": "Identifier",
+												"start": 32,
+												"end": 33,
+												"name": "b"
+											},
+											"value": {
+												"type": "Literal",
+												"start": 35,
+												"end": 38,
+												"value": "b",
+												"raw": "'b'"
+											},
+											"kind": "init"
+										}
+									]
+								}
+							}
+						],
+						"kind": "var"
+					}
+				],
+				"sourceType": "module"
+			};
+
+			var scope = attachScopes(ast, 'scope');
+			assert.ok(scope.contains('a'));
+			assert.ok(scope.contains('b'));
+		});
+
 		// TODO more tests
 	});
 
