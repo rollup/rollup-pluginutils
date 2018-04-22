@@ -447,16 +447,21 @@ describe( 'rollup-pluginutils', function () {
 		var dataToEsm = utils.dataToEsm;
 
 		it( 'outputs treeshakable data', function () {
-			assert.equal( dataToEsm({ some: 'data', another: 'data' }), 'export const some = "data";\nexport const another = "data";\nexport default {\n  some,\n  another\n};' );
+			assert.equal( dataToEsm( { some: 'data', another: 'data' } ), 'export const some = "data";\nexport const another = "data";\nexport default {\n  some,\n  another\n};' );
 		});
 
 		it( 'handles illegal identifiers', function () {
-			assert.equal( dataToEsm({ '1': 'data', 'default': 'data' }), 'export const _1 = "data";\nexport const _default = "data";\nexport default {\n  \'1\': _1,\n  \'default\': _default\n};' );
+			assert.equal( dataToEsm( { '1': 'data', 'default': 'data' } ), 'export const _1 = "data";\nexport const _default = "data";\nexport default {\n  \'1\': _1,\n  \'default\': _default\n};' );
 		});
 
 		it( 'supports non-JSON data', function () {
 			const date = new Date();
-			assert.equal( dataToEsm({ inf: Infinity, date: date }), 'export const inf = Infinity;\nexport const date = new Date(' + date.getTime() + ');\nexport default {\n  inf,\n  date\n};' );
+			assert.equal( dataToEsm( { inf: Infinity, date: date } ), 'export const inf = Infinity;\nexport const date = new Date(' + date.getTime() + ');\nexport default {\n  inf,\n  date\n};' );
+		});
+
+		it( 'supports a compact argument', function () {
+			assert.equal( dataToEsm( { some: 'data', another: 'data' }, true ), 'export const some="data";export const another="data";export default{some,another};' );
+			assert.equal( dataToEsm( { some: { deep: { object: 'definition', here: 'here' } }, another: 'data' }, true ), 'export const some={deep:{object:"definition",here:"here"}};export const another="data";export default{some,another};' );
 		});
 	});
 });
