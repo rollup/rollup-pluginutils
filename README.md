@@ -103,14 +103,14 @@ makeLegalIdentifier( 'foo-bar' ); // 'foo_bar'
 makeLegalIdentifier( 'typeof' ); // '_typeof'
 ```
 
-### dataToNamedExports
+### dataToEsm
 
 Helper for treeshakable data imports
 
 ```js
-import { dataToNamedExports } from 'rollup-pluginutils';
+import { dataToEsm } from 'rollup-pluginutils';
 
-const esModuleSource = dataToNamedExports({
+const esModuleSource = dataToEsm({
   custom: 'data',
   to: ['treeshake']
 });
