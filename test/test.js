@@ -306,6 +306,124 @@ describe( 'rollup-pluginutils', function () {
 			assert.ok(scope.contains('b'));
 		});
 
+		it('adds nested declarators from a deconstructed declaration', function() {
+			var ast = {
+				"type": "Program",
+				"start": 0,
+				"end": 40,
+				"body": [{
+					"type": "VariableDeclaration",
+					"start": 0,
+					"end": 40,
+					"declarations": [{
+						"type": "VariableDeclarator",
+						"start": 4,
+						"end": 39,
+						"id": {
+							"type": "ObjectPattern",
+							"start": 4,
+							"end": 19,
+							"properties": [{
+								"type": "Property",
+								"start": 6,
+								"end": 17,
+								"method": false,
+								"shorthand": false,
+								"computed": false,
+								"key": {
+									"type": "Identifier",
+									"start": 6,
+									"end": 7,
+									"name": "a"
+								},
+								"value": {
+									"type": "ObjectPattern",
+									"start": 9,
+									"end": 17,
+									"properties": [{
+										"type": "Property",
+										"start": 11,
+										"end": 15,
+										"method": false,
+										"shorthand": false,
+										"computed": false,
+										"key": {
+											"type": "Identifier",
+											"start": 11,
+											"end": 12,
+											"name": "b"
+										},
+										"value": {
+											"type": "Identifier",
+											"start": 14,
+											"end": 15,
+											"name": "c"
+										},
+										"kind": "init"
+									}]
+								},
+								"kind": "init"
+							}]
+						},
+						"init": {
+							"type": "ObjectExpression",
+							"start": 22,
+							"end": 39,
+							"properties": [{
+								"type": "Property",
+								"start": 24,
+								"end": 37,
+								"method": false,
+								"shorthand": false,
+								"computed": false,
+								"key": {
+									"type": "Identifier",
+									"start": 24,
+									"end": 25,
+									"name": "a"
+								},
+								"value": {
+									"type": "ObjectExpression",
+									"start": 27,
+									"end": 37,
+									"properties": [{
+										"type": "Property",
+										"start": 29,
+										"end": 35,
+										"method": false,
+										"shorthand": false,
+										"computed": false,
+										"key": {
+											"type": "Identifier",
+											"start": 29,
+											"end": 30,
+											"name": "b"
+										},
+										"value": {
+											"type": "Literal",
+											"start": 32,
+											"end": 35,
+											"value": "b",
+											"raw": "'b'"
+										},
+										"kind": "init"
+									}]
+								},
+								"kind": "init"
+							}]
+						}
+					}],
+					"kind": "let"
+				}],
+				"sourceType": "module"
+			};
+
+			var scope = attachScopes(ast, 'scope');
+			assert.ok(!scope.contains('a'));
+			assert.ok(!scope.contains('b'));
+			assert.ok(scope.contains('c'));
+		});
+
 		// TODO more tests
 	});
 
