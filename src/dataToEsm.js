@@ -10,7 +10,9 @@ export default function dataToNamedExports ( data, options = {} ) {
 
   let namedExportCode = '';
   const defaultExportRows = [];
-  Object.keys( data ).forEach(key => {
+  const dataKeys = Object.keys( data );
+  for (let i = 0; i < dataKeys.length; i++) {
+    const key = dataKeys[i];
   	if (key === makeLegalIdentifier( key )) {
       if ( options.objectShorthand )
         defaultExportRows.push(key);
@@ -20,6 +22,6 @@ export default function dataToNamedExports ( data, options = {} ) {
   	} else {
       defaultExportRows.push( `${ JSON.stringify(key) }: ${ tosource( data[key], null, options.compact ? false : t )}` );
     }
-  });
+  }
   return namedExportCode + `export default${ _ }{${ n }${ t }${ defaultExportRows.join(`,${ n }${ t }`) }${ n }};${ n }`;
 };
