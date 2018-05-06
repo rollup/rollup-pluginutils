@@ -447,21 +447,21 @@ describe( 'rollup-pluginutils', function () {
 		var dataToEsm = utils.dataToEsm;
 
 		it( 'outputs treeshakable data', function () {
-			assert.equal( dataToEsm( { some: 'data', another: 'data' } ), 'export const some = "data";\nexport const another = "data";\nexport default {\n  some,\n  another\n};' );
+			assert.equal( dataToEsm( { some: 'data', another: 'data' } ), 'export var some = "data";\nexport var another = "data";\nexport default {\n\tsome: some,\n\tanother: another\n};\n' );
 		});
 
-		it( 'handles illegal identifiers', function () {
-			assert.equal( dataToEsm( { '1': 'data', 'default': 'data' } ), 'export const _1 = "data";\nexport const _default = "data";\nexport default {\n  \'1\': _1,\n  \'default\': _default\n};' );
+		it( 'handles illegal identifiers, object shorthand, preferConst', function () {
+			assert.equal( dataToEsm( { '1': 'data', 'default': 'data' }, { objectShorthand: true, preferConst: true } ), 'export default {\n\t"1": "data",\n\t"default": "data"\n};\n' );
 		});
 
 		it( 'supports non-JSON data', function () {
 			const date = new Date();
-			assert.equal( dataToEsm( { inf: Infinity, date: date } ), 'export const inf = Infinity;\nexport const date = new Date(' + date.getTime() + ');\nexport default {\n  inf,\n  date\n};' );
+			assert.equal( dataToEsm( { inf: Infinity, date: date } ), 'export var inf = Infinity;\nexport var date = new Date(' + date.getTime() + ');\nexport default {\n\tinf: inf,\n\tdate: date\n};\n' );
 		});
 
 		it( 'supports a compact argument', function () {
-			assert.equal( dataToEsm( { some: 'data', another: 'data' }, true ), 'export const some="data";export const another="data";export default{some,another};' );
-			assert.equal( dataToEsm( { some: { deep: { object: 'definition', here: 'here' } }, another: 'data' }, true ), 'export const some={deep:{object:"definition",here:"here"}};export const another="data";export default{some,another};' );
+			assert.equal( dataToEsm( { some: 'data', another: 'data' }, { compact: true, objectShorthand: true } ), 'export var some="data";export var another="data";export default{some,another};' );
+			assert.equal( dataToEsm( { some: { deep: { object: 'definition', here: 'here' } }, another: 'data' }, { compact: true, objectShorthand: true } ), 'export var some={deep:{object:"definition",here:"here"}};export var another="data";export default{some,another};' );
 		});
 	});
 });

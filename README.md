@@ -113,6 +113,11 @@ import { dataToEsm } from 'rollup-pluginutils';
 const esModuleSource = dataToEsm({
   custom: 'data',
   to: ['treeshake']
+}, options = {
+  compact: false,
+  indent: '\t',
+  preferConst: false,
+  objectShorthand: false
 });
 /*
 Outputs the string ES module source:
