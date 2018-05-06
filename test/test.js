@@ -461,7 +461,7 @@ describe( 'rollup-pluginutils', function () {
 
 		it( 'supports a compact argument', function () {
 			assert.equal( dataToEsm( { some: 'data', another: 'data' }, { compact: true, objectShorthand: true } ), 'export var some="data";export var another="data";export default{some,another};' );
-			assert.equal( dataToEsm( { some: { deep: { object: 'definition', here: 'here' } }, another: 'data' }, { compact: true, objectShorthand: true } ), 'export var some={deep:{object:"definition",here:"here"}};export var another="data";export default{some,another};' );
+			assert.equal( dataToEsm( { some: { deep: { object: 'definition', here: 'here' } }, another: 'data' }, { compact: true, objectShorthand: false } ), 'export var some={deep:{object:"definition",here:"here"}};export var another="data";export default{some:some,another:another};' );
 		});
 	});
 });
