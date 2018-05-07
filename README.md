@@ -103,6 +103,30 @@ makeLegalIdentifier( 'foo-bar' ); // 'foo_bar'
 makeLegalIdentifier( 'typeof' ); // '_typeof'
 ```
 
+### dataToEsm
+
+Helper for treeshakable data imports
+
+```js
+import { dataToEsm } from 'rollup-pluginutils';
+
+const esModuleSource = dataToEsm({
+  custom: 'data',
+  to: ['treeshake']
+}, options = {
+  compact: false,
+  indent: '\t',
+  preferConst: false,
+  objectShorthand: false
+});
+/*
+Outputs the string ES module source:
+  export const custom = 'data';
+  export const to = ['treeshake'];
+  export default { custom, to };
+*/
+```
+
 
 ## License
 
