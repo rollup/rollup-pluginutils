@@ -424,6 +424,41 @@ describe( 'rollup-pluginutils', function () {
 			assert.ok(scope.contains('c'));
 		});
 
+		it( 'supports FunctionDeclarations without id', function () {
+			var ast = {
+				"type": "Program",
+				"start": 0,
+				"end": 33,
+				"body": [
+				    {
+						"type": "ExportDefaultDeclaration",
+						"start": 0,
+						"end": 32,
+						"declaration": {
+							"type": "FunctionDeclaration",
+							"start": 15,
+							"end": 32,
+							"id": null,
+							"generator": false,
+							"expression": false,
+							"async": false,
+							"params": [],
+							"body": {
+								"type": "BlockStatement",
+								"start": 26,
+								"end": 32,
+								"body": []
+					  		}
+						}
+				  	}
+				],
+				"sourceType": "module"
+			  };
+
+			var scope = attachScopes( ast, 'scope' );
+			// does not throw
+		});
+
 		// TODO more tests
 	});
 

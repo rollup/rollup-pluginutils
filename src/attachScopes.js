@@ -65,7 +65,7 @@ class Scope {
 			// it's a `var` or function node, and this
 			// is a block scope, so we need to go up
 			this.parent.addDeclaration( node, isBlockDeclaration, isVar );
-		} else {
+		} else if ( node.id ) {
 			extractNames( node.id ).forEach( name => {
 				this.declarations[ name ] = true;
 			});
