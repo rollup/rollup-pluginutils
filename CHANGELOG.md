@@ -4,6 +4,7 @@
 *unreleased*
 * Add `dataToEsm` helper to create named exports from objects ([#29](https://github.com/rollup/rollup-pluginutils/issues/29))
 * Support literal keys in object patterns ([#27](https://github.com/rollup/rollup-pluginutils/issues/27))
+* Support function declarations without id in `attachScopes` ([#28](https://github.com/rollup/rollup-pluginutils/issues/28))
 
 ## 2.0.1
 *2017-01-03*
