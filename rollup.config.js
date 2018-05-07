@@ -2,18 +2,18 @@ var pkg = require('./package.json');
 import buble from 'rollup-plugin-buble';
 
 export default {
-	entry: 'src/index.js',
+	input: 'src/index.js',
 	plugins: [ buble() ],
 	external: [ 'path', 'estree-walker', 'micromatch', 'tosource' ],
 
-	targets: [
+	output: [
 		{
 			format: 'cjs',
-			dest: pkg['main']
+			file: pkg['main']
 		},
 		{
 			format: 'es',
-			dest: pkg['module']
+			file: pkg['module']
 		}
 	]
 };
