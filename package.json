@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "estree-walker": "^0.5.2",
-    "micromatch": "^3.1.10",
+    "micromatch": "^2.3.11",
     "tosource": "^1.0.0"
   },
   "repository": "rollup/rollup-pluginutils",
