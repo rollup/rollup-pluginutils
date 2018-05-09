@@ -498,5 +498,15 @@ describe( 'rollup-pluginutils', function () {
 			assert.equal( dataToEsm( { some: 'data', another: 'data' }, { compact: true, objectShorthand: true } ), 'export var some="data";export var another="data";export default{some,another};' );
 			assert.equal( dataToEsm( { some: { deep: { object: 'definition', here: 'here' } }, another: 'data' }, { compact: true, objectShorthand: false } ), 'export var some={deep:{object:"definition",here:"here"}};export var another="data";export default{some:some,another:another};' );
 		});
+
+		it( 'supports nested objects', function () {
+			const obj = { a: { b: 'c', d: ['e', 'f'] } }
+			assert.equal( dataToEsm( { obj: obj } ), 'export var obj = {\n\ta: {\n\t\tb: "c",\n\t\td: [\n\t\t\t"e",\n\t\t\t"f"\n\t\t]\n\t}\n};\nexport default {\n\tobj: obj\n};\n' );
+		});
+
+		it ( 'supports nested arrays', function () {
+			const arr = ['a', 'b'];
+			assert.equal( dataToEsm( { arr: arr } ), 'export var arr = [\n\t"a",\n\t"b"\n];\nexport default {\n\tarr: arr\n};\n' );
+		});
 	});
 });
