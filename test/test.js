@@ -490,7 +490,7 @@ describe( 'rollup-pluginutils', function () {
 		});
 
 		it( 'supports non-JSON data', function () {
-			const date = new Date();
+			var date = new Date();
 			assert.equal( dataToEsm( { inf: Infinity, date: date } ), 'export var inf = Infinity;\nexport var date = new Date(' + date.getTime() + ');\nexport default {\n\tinf: inf,\n\tdate: date\n};\n' );
 		});
 
@@ -500,12 +500,12 @@ describe( 'rollup-pluginutils', function () {
 		});
 
 		it( 'supports nested objects', function () {
-			const obj = { a: { b: 'c', d: ['e', 'f'] } }
+			var obj = { a: { b: 'c', d: ['e', 'f'] } }
 			assert.equal( dataToEsm( { obj: obj } ), 'export var obj = {\n\ta: {\n\t\tb: "c",\n\t\td: [\n\t\t\t"e",\n\t\t\t"f"\n\t\t]\n\t}\n};\nexport default {\n\tobj: obj\n};\n' );
 		});
 
 		it ( 'supports nested arrays', function () {
-			const arr = ['a', 'b'];
+			var arr = ['a', 'b'];
 			assert.equal( dataToEsm( { arr: arr } ), 'export var arr = [\n\t"a",\n\t"b"\n];\nexport default {\n\tarr: arr\n};\n' );
 		});
 	});
