@@ -481,7 +481,7 @@ describe( 'rollup-pluginutils', function () {
 	describe( 'dataToEsm', function () {
 		var dataToEsm = utils.dataToEsm;
 
-		it.only( 'outputs treeshakable data', function () {
+		it( 'outputs treeshakable data', function () {
 			assert.equal( dataToEsm( { some: 'data', another: 'data' } ), 'export var some = "data";\nexport var another = "data";\nexport default {\n\tsome: some,\n\tanother: another\n};\n' );
 		});
 
@@ -491,7 +491,7 @@ describe( 'rollup-pluginutils', function () {
 
 		it( 'supports non-JSON data', function () {
 			var date = new Date();
-			assert.equal( dataToEsm( { inf: Infinity, date: date } ), 'export var inf = Infinity;\nexport var date = new Date(' + date.getTime() + ');\nexport default {\n\tinf: inf,\n\tdate: date\n};\n' );
+			assert.equal( dataToEsm( { inf: Infinity, date: date, number: NaN, regexp: /.*/ } ), 'export var inf = Infinity;\nexport var date = new Date(' + date.getTime() + ');\nexport var number = NaN;\nexport var regexp = /.*/;\nexport default {\n\tinf: inf,\n\tdate: date,\n\tnumber: number,\n\tregexp: regexp\n};\n' );
 		});
 
 		it( 'supports a compact argument', function () {
