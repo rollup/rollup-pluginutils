@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 2.2.0
+*2017-05-11*
+* Improve white-space handling in `dataToEsm` and add `prepare` script ([#31](https://github.com/rollup/rollup-pluginutils/issues/31))
+
 ## 2.1.0
 *2017-05-07*
 * Add `dataToEsm` helper to create named exports from objects ([#29](https://github.com/rollup/rollup-pluginutils/issues/29))

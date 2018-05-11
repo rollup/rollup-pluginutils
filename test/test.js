@@ -52,7 +52,7 @@ describe( 'rollup-pluginutils', function () {
 			assert.ok( filter( path.resolve( 'a.js' ) ) );
 			assert.ok( filter( path.resolve( 'a/b.js' ) ) );
 			assert.ok( !filter( path.resolve( 'a/b.jsx' ) ) );
-		})
+		});
 
 		it ('excludes with regexp', function () {
 			var filter = createFilter(['a/!(b)/c' , /\.js$/ ], /\.js$/);
@@ -61,7 +61,7 @@ describe( 'rollup-pluginutils', function () {
 			assert.ok( !filter( path.resolve( 'a.js' ) ) );
 			assert.ok( !filter( path.resolve( 'a/b.js' ) ) );
 			assert.ok( !filter( path.resolve( 'a/b.jsx' ) ) );
-		})
+		});
 	});
 
 	describe( 'addExtension', function () {
@@ -96,32 +96,32 @@ describe( 'rollup-pluginutils', function () {
 
 		it( 'attaches a scope to the top level', function () {
 			var ast = {
-				"type": "Program",
-				"start": 0,
-				"end": 8,
-				"body": [
+				'type': 'Program',
+				'start': 0,
+				'end': 8,
+				'body': [
 					{
-						"type": "VariableDeclaration",
-						"start": 0,
-						"end": 8,
-						"declarations": [
+						'type': 'VariableDeclaration',
+						'start': 0,
+						'end': 8,
+						'declarations': [
 							{
-								"type": "VariableDeclarator",
-								"start": 4,
-								"end": 7,
-								"id": {
-									"type": "Identifier",
-									"start": 4,
-									"end": 7,
-									"name": "foo"
+								'type': 'VariableDeclarator',
+								'start': 4,
+								'end': 7,
+								'id': {
+									'type': 'Identifier',
+									'start': 4,
+									'end': 7,
+									'name': 'foo'
 								},
-								"init": null
+								'init': null
 							}
 						],
-						"kind": "var"
+						'kind': 'var'
 					}
 				],
-				"sourceType": "module"
+				'sourceType': 'module'
 			};
 
 			var scope = attachScopes( ast, 'scope' );
@@ -131,45 +131,45 @@ describe( 'rollup-pluginutils', function () {
 
 		it( 'adds multiple declarators from a single var declaration', function () {
 			var ast = {
-				"type": "Program",
-				"start": 0,
-				"end": 13,
-				"body": [
+				'type': 'Program',
+				'start': 0,
+				'end': 13,
+				'body': [
 					{
-						"type": "VariableDeclaration",
-						"start": 0,
-						"end": 13,
-						"declarations": [
+						'type': 'VariableDeclaration',
+						'start': 0,
+						'end': 13,
+						'declarations': [
 							{
-								"type": "VariableDeclarator",
-								"start": 4,
-								"end": 7,
-								"id": {
-									"type": "Identifier",
-									"start": 4,
-									"end": 7,
-									"name": "foo"
+								'type': 'VariableDeclarator',
+								'start': 4,
+								'end': 7,
+								'id': {
+									'type': 'Identifier',
+									'start': 4,
+									'end': 7,
+									'name': 'foo'
 								},
-								"init": null
+								'init': null
 							},
 
 							{
-								"type": "VariableDeclarator",
-								"start": 9,
-								"end": 12,
-								"id": {
-									"type": "Identifier",
-									"start": 9,
-									"end": 12,
-									"name": "bar"
+								'type': 'VariableDeclarator',
+								'start': 9,
+								'end': 12,
+								'id': {
+									'type': 'Identifier',
+									'start': 9,
+									'end': 12,
+									'name': 'bar'
 								},
-								"init": null
+								'init': null
 							}
 						],
-						"kind": "var"
+						'kind': 'var'
 					}
 				],
-				"sourceType": "module"
+				'sourceType': 'module'
 			};
 
 			var scope = attachScopes( ast, 'scope' );
@@ -177,128 +177,128 @@ describe( 'rollup-pluginutils', function () {
 			assert.ok( scope.contains( 'bar' ) );
 		});
 
-		it('adds named declarators from a deconstructed declaration', function() {
+		it('adds named declarators from a deconstructed declaration', function () {
 			var ast = {
-				"type": "Program",
-				"start": 0,
-				"end": 13,
-				"body": [
+				'type': 'Program',
+				'start': 0,
+				'end': 13,
+				'body': [
 					{
-						"type": "VariableDeclaration",
-						"start": 0,
-						"end": 42,
-						"declarations": [
+						'type': 'VariableDeclaration',
+						'start': 0,
+						'end': 42,
+						'declarations': [
 							{
-								"type": "VariableDeclarator",
-								"start": 4,
-								"end": 41,
-								"id": {
-								"type": "ObjectPattern",
-								"start": 4,
-								"end": 15,
-								"properties": [
-									{
-										"type": "Property",
-										"start": 6,
-										"end": 10,
-										"method": false,
-										"shorthand": false,
-										"computed": false,
-										"key": {
-											"type": "Literal",
-											"start": 6,
-											"end": 7,
-											"value": 1,
-											"raw": "1"
+								'type': 'VariableDeclarator',
+								'start': 4,
+								'end': 41,
+								'id': {
+									'type': 'ObjectPattern',
+									'start': 4,
+									'end': 15,
+									'properties': [
+										{
+											'type': 'Property',
+											'start': 6,
+											'end': 10,
+											'method': false,
+											'shorthand': false,
+											'computed': false,
+											'key': {
+												'type': 'Literal',
+												'start': 6,
+												'end': 7,
+												'value': 1,
+												'raw': '1'
+											},
+											'value': {
+												'type': 'Identifier',
+												'start': 9,
+												'end': 10,
+												'name': 'a'
+											},
+											'kind': 'init'
 										},
-										"value": {
-											"type": "Identifier",
-											"start": 9,
-											"end": 10,
-											"name": "a"
-										},
-										"kind": "init"
-									},
-									{
-										"type": "Property",
-										"start": 12,
-										"end": 13,
-										"method": false,
-										"shorthand": true,
-										"computed": false,
-										"key": {
-											"type": "Identifier",
-											"start": 12,
-											"end": 13,
-											"name": "b"
-										},
-										"kind": "init",
-										"value": {
-											"type": "Identifier",
-											"start": 12,
-											"end": 13,
-											"name": "b"
+										{
+											'type': 'Property',
+											'start': 12,
+											'end': 13,
+											'method': false,
+											'shorthand': true,
+											'computed': false,
+											'key': {
+												'type': 'Identifier',
+												'start': 12,
+												'end': 13,
+												'name': 'b'
+											},
+											'kind': 'init',
+											'value': {
+												'type': 'Identifier',
+												'start': 12,
+												'end': 13,
+												'name': 'b'
+											}
 										}
-									}
-								]},
-								"init": {
-									"type": "ObjectExpression",
-									"start": 18,
-									"end": 41,
-									"properties": [
+									]},
+								'init': {
+									'type': 'ObjectExpression',
+									'start': 18,
+									'end': 41,
+									'properties': [
 										{
-											"type": "Property",
-											"start": 22,
-											"end": 28,
-											"method": false,
-											"shorthand": false,
-											"computed": false,
-											"key": {
-												"type": "Literal",
-												"start": 22,
-												"end": 23,
-												"value": 1,
-												"raw": "1"
+											'type': 'Property',
+											'start': 22,
+											'end': 28,
+											'method': false,
+											'shorthand': false,
+											'computed': false,
+											'key': {
+												'type': 'Literal',
+												'start': 22,
+												'end': 23,
+												'value': 1,
+												'raw': '1'
 											},
-											"value": {
-												"type": "Literal",
-												"start": 25,
-												"end": 28,
-												"value": "a",
-												"raw": "'a'"
+											'value': {
+												'type': 'Literal',
+												'start': 25,
+												'end': 28,
+												'value': 'a',
+												'raw': '\'a\''
 											},
-											"kind": "init"
+											'kind': 'init'
 										},
 										{
-											"type": "Property",
-											"start": 32,
-											"end": 38,
-											"method": false,
-											"shorthand": false,
-											"computed": false,
-											"key": {
-												"type": "Identifier",
-												"start": 32,
-												"end": 33,
-												"name": "b"
+											'type': 'Property',
+											'start': 32,
+											'end': 38,
+											'method': false,
+											'shorthand': false,
+											'computed': false,
+											'key': {
+												'type': 'Identifier',
+												'start': 32,
+												'end': 33,
+												'name': 'b'
 											},
-											"value": {
-												"type": "Literal",
-												"start": 35,
-												"end": 38,
-												"value": "b",
-												"raw": "'b'"
+											'value': {
+												'type': 'Literal',
+												'start': 35,
+												'end': 38,
+												'value': 'b',
+												'raw': '\'b\''
 											},
-											"kind": "init"
+											'kind': 'init'
 										}
 									]
 								}
 							}
 						],
-						"kind": "var"
+						'kind': 'var'
 					}
 				],
-				"sourceType": "module"
+				'sourceType': 'module'
 			};
 
 			var scope = attachScopes(ast, 'scope');
@@ -306,116 +306,116 @@ describe( 'rollup-pluginutils', function () {
 			assert.ok(scope.contains('b'));
 		});
 
-		it('adds nested declarators from a deconstructed declaration', function() {
+		it('adds nested declarators from a deconstructed declaration', function () {
 			var ast = {
-				"type": "Program",
-				"start": 0,
-				"end": 40,
-				"body": [{
-					"type": "VariableDeclaration",
-					"start": 0,
-					"end": 40,
-					"declarations": [{
-						"type": "VariableDeclarator",
-						"start": 4,
-						"end": 39,
-						"id": {
-							"type": "ObjectPattern",
-							"start": 4,
-							"end": 19,
-							"properties": [{
-								"type": "Property",
-								"start": 6,
-								"end": 17,
-								"method": false,
-								"shorthand": false,
-								"computed": false,
-								"key": {
-									"type": "Identifier",
-									"start": 6,
-									"end": 7,
-									"name": "a"
+				'type': 'Program',
+				'start': 0,
+				'end': 40,
+				'body': [{
+					'type': 'VariableDeclaration',
+					'start': 0,
+					'end': 40,
+					'declarations': [{
+						'type': 'VariableDeclarator',
+						'start': 4,
+						'end': 39,
+						'id': {
+							'type': 'ObjectPattern',
+							'start': 4,
+							'end': 19,
+							'properties': [{
+								'type': 'Property',
+								'start': 6,
+								'end': 17,
+								'method': false,
+								'shorthand': false,
+								'computed': false,
+								'key': {
+									'type': 'Identifier',
+									'start': 6,
+									'end': 7,
+									'name': 'a'
 								},
-								"value": {
-									"type": "ObjectPattern",
-									"start": 9,
-									"end": 17,
-									"properties": [{
-										"type": "Property",
-										"start": 11,
-										"end": 15,
-										"method": false,
-										"shorthand": false,
-										"computed": false,
-										"key": {
-											"type": "Identifier",
-											"start": 11,
-											"end": 12,
-											"name": "b"
+								'value': {
+									'type': 'ObjectPattern',
+									'start': 9,
+									'end': 17,
+									'properties': [{
+										'type': 'Property',
+										'start': 11,
+										'end': 15,
+										'method': false,
+										'shorthand': false,
+										'computed': false,
+										'key': {
+											'type': 'Identifier',
+											'start': 11,
+											'end': 12,
+											'name': 'b'
 										},
-										"value": {
-											"type": "Identifier",
-											"start": 14,
-											"end": 15,
-											"name": "c"
+										'value': {
+											'type': 'Identifier',
+											'start': 14,
+											'end': 15,
+											'name': 'c'
 										},
-										"kind": "init"
+										'kind': 'init'
 									}]
 								},
-								"kind": "init"
+								'kind': 'init'
 							}]
 						},
-						"init": {
-							"type": "ObjectExpression",
-							"start": 22,
-							"end": 39,
-							"properties": [{
-								"type": "Property",
-								"start": 24,
-								"end": 37,
-								"method": false,
-								"shorthand": false,
-								"computed": false,
-								"key": {
-									"type": "Identifier",
-									"start": 24,
-									"end": 25,
-									"name": "a"
+						'init': {
+							'type': 'ObjectExpression',
+							'start': 22,
+							'end': 39,
+							'properties': [{
+								'type': 'Property',
+								'start': 24,
+								'end': 37,
+								'method': false,
+								'shorthand': false,
+								'computed': false,
+								'key': {
+									'type': 'Identifier',
+									'start': 24,
+									'end': 25,
+									'name': 'a'
 								},
-								"value": {
-									"type": "ObjectExpression",
-									"start": 27,
-									"end": 37,
-									"properties": [{
-										"type": "Property",
-										"start": 29,
-										"end": 35,
-										"method": false,
-										"shorthand": false,
-										"computed": false,
-										"key": {
-											"type": "Identifier",
-											"start": 29,
-											"end": 30,
-											"name": "b"
+								'value': {
+									'type': 'ObjectExpression',
+									'start': 27,
+									'end': 37,
+									'properties': [{
+										'type': 'Property',
+										'start': 29,
+										'end': 35,
+										'method': false,
+										'shorthand': false,
+										'computed': false,
+										'key': {
+											'type': 'Identifier',
+											'start': 29,
+											'end': 30,
+											'name': 'b'
 										},
-										"value": {
-											"type": "Literal",
-											"start": 32,
-											"end": 35,
-											"value": "b",
-											"raw": "'b'"
+										'value': {
+											'type': 'Literal',
+											'start': 32,
+											'end': 35,
+											'value': 'b',
+											'raw': '\'b\''
 										},
-										"kind": "init"
+										'kind': 'init'
 									}]
 								},
-								"kind": "init"
+								'kind': 'init'
 							}]
 						}
 					}],
-					"kind": "let"
+					'kind': 'let'
 				}],
-				"sourceType": "module"
+				'sourceType': 'module'
 			};
 
 			var scope = attachScopes(ast, 'scope');
@@ -426,36 +426,36 @@ describe( 'rollup-pluginutils', function () {
 
 		it( 'supports FunctionDeclarations without id', function () {
 			var ast = {
-				"type": "Program",
-				"start": 0,
-				"end": 33,
-				"body": [
+				'type': 'Program',
+				'start': 0,
+				'end': 33,
+				'body': [
 				    {
-						"type": "ExportDefaultDeclaration",
-						"start": 0,
-						"end": 32,
-						"declaration": {
-							"type": "FunctionDeclaration",
-							"start": 15,
-							"end": 32,
-							"id": null,
-							"generator": false,
-							"expression": false,
-							"async": false,
-							"params": [],
-							"body": {
-								"type": "BlockStatement",
-								"start": 26,
-								"end": 32,
-								"body": []
-					  		}
+						'type': 'ExportDefaultDeclaration',
+						'start': 0,
+						'end': 32,
+						'declaration': {
+							'type': 'FunctionDeclaration',
+							'start': 15,
+							'end': 32,
+							'id': null,
+							'generator': false,
+							'expression': false,
+							'async': false,
+							'params': [],
+							'body': {
+								'type': 'BlockStatement',
+								'start': 26,
+								'end': 32,
+								'body': []
+							}
 						}
-				  	}
+					}
 				],
-				"sourceType": "module"
+				'sourceType': 'module'
 			  };
 
-			var scope = attachScopes( ast, 'scope' );
+			attachScopes( ast, 'scope' );
 			// does not throw
 		});
 
@@ -490,13 +490,23 @@ describe( 'rollup-pluginutils', function () {
 		});
 
 		it( 'supports non-JSON data', function () {
-			const date = new Date();
-			assert.equal( dataToEsm( { inf: Infinity, date: date } ), 'export var inf = Infinity;\nexport var date = new Date(' + date.getTime() + ');\nexport default {\n\tinf: inf,\n\tdate: date\n};\n' );
+			var date = new Date();
+			assert.equal( dataToEsm( { inf: Infinity, date: date, number: NaN, regexp: /.*/ } ), 'export var inf = Infinity;\nexport var date = new Date(' + date.getTime() + ');\nexport var number = NaN;\nexport var regexp = /.*/;\nexport default {\n\tinf: inf,\n\tdate: date,\n\tnumber: number,\n\tregexp: regexp\n};\n' );
 		});
 
 		it( 'supports a compact argument', function () {
 			assert.equal( dataToEsm( { some: 'data', another: 'data' }, { compact: true, objectShorthand: true } ), 'export var some="data";export var another="data";export default{some,another};' );
 			assert.equal( dataToEsm( { some: { deep: { object: 'definition', here: 'here' } }, another: 'data' }, { compact: true, objectShorthand: false } ), 'export var some={deep:{object:"definition",here:"here"}};export var another="data";export default{some:some,another:another};' );
+		});
+
+		it( 'supports nested objects', function () {
+			var obj = { a: { b: 'c', d: ['e', 'f'] } };
+			assert.equal( dataToEsm( { obj: obj } ), 'export var obj = {\n\ta: {\n\t\tb: "c",\n\t\td: [\n\t\t\t"e",\n\t\t\t"f"\n\t\t]\n\t}\n};\nexport default {\n\tobj: obj\n};\n' );
+		});
+
+		it ( 'supports nested arrays', function () {
+			var arr = ['a', 'b'];
+			assert.equal( dataToEsm( { arr: arr } ), 'export var arr = [\n\t"a",\n\t"b"\n];\nexport default {\n\tarr: arr\n};\n' );
 		});
 	});
 });
