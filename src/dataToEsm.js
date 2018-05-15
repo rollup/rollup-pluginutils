@@ -47,7 +47,7 @@ export default function dataToNamedExports (data, options = {}) {
 	const n = options.compact ? '' : '\n';
 	const declarationType = options.preferConst ? 'const' : 'var';
 	
-	if (options.namedExports === false)
+	if (options.namedExports === false || typeof data !== 'object' || Array.isArray(data))
 		return `export default${ _ }${ serialize( data, options.compact ? null : t, '' ) };`;
 
 	let namedExportCode = '';

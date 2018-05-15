@@ -517,5 +517,10 @@ describe( 'rollup-pluginutils', function () {
 			var arr = ['a', 'b'];
 			assert.equal( dataToEsm( { arr: arr }, { namedExports: false } ), 'export default {\n\tarr: [\n\t\t"a",\n\t\t"b"\n\t]\n};' );
 		});
+
+		it ( 'default only for non-objects', function () {
+			var arr = ['a', 'b'];
+			assert.equal( dataToEsm( arr ), 'export default [\n\t"a",\n\t"b"\n];' );
+		});
 	});
 });
