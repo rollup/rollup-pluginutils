@@ -117,7 +117,8 @@ const esModuleSource = dataToEsm({
   compact: false,
   indent: '\t',
   preferConst: false,
-  objectShorthand: false
+  objectShorthand: false,
+  namedExports: true
 });
 /*
 Outputs the string ES module source:
