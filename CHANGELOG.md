@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 2.3.0
+*2017-05-21*
+* Add option to not generate named exports ([#32](https://github.com/rollup/rollup-pluginutils/issues/32))
+
 ## 2.2.1
 *2017-05-21*
 * Support `null` serialization ([#34](https://github.com/rollup/rollup-pluginutils/issues/34))
