@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 2.2.1
+*2017-05-21*
+* Support `null` serialization ([#34](https://github.com/rollup/rollup-pluginutils/issues/34))
+
 ## 2.2.0
 *2017-05-11*
 * Improve white-space handling in `dataToEsm` and add `prepare` script ([#31](https://github.com/rollup/rollup-pluginutils/issues/31))

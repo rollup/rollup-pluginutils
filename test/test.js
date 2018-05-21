@@ -508,5 +508,9 @@ describe( 'rollup-pluginutils', function () {
 			var arr = ['a', 'b'];
 			assert.equal( dataToEsm( { arr: arr } ), 'export var arr = [\n\t"a",\n\t"b"\n];\nexport default {\n\tarr: arr\n};\n' );
 		});
+
+		it ( 'supports null serialize', function () {
+			assert.equal( dataToEsm( { null: null } ), 'export default {\n\t"null": null\n};\n' );
+		});
 	});
 });

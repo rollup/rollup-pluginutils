@@ -33,6 +33,8 @@ function serialize (obj, indent, baseIndent) {
 		return 'NaN';
 	if (Array.isArray(obj))
 		return serializeArray(obj, indent, baseIndent);
+	if (obj === null)
+		return 'null';
 	if (typeof obj === 'object')
 		return serializeObject(obj, indent, baseIndent);
 	return JSON.stringify(obj);
