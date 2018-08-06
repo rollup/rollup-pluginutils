@@ -306,6 +306,213 @@ describe( 'rollup-pluginutils', function () {
 			assert.ok(scope.contains('b'));
 		});
 
+		it( 'adds rest elements from a deconstructed object declaration', function () {
+			var ast = {
+				'type': 'Program',
+				'start': 0,
+				'end': 66,
+				'body': [
+					{
+						'type': 'VariableDeclaration',
+						'start': 0,
+						'end': 66,
+						'declarations': [
+							{
+								'type': 'VariableDeclarator',
+								'start': 6,
+								'end': 66,
+								'id': {
+									'type': 'ObjectPattern',
+									'start': 6,
+									'end': 26,
+									'properties': [
+										{
+											'type': 'Property',
+											'start': 8,
+											'end': 9,
+											'method': false,
+											'shorthand': true,
+											'computed': false,
+											'key': {
+												'type': 'Identifier',
+												'start': 8,
+												'end': 9,
+												'name': 'x'
+											},
+											'kind': 'init',
+											'value': {
+												'type': 'Identifier',
+												'start': 8,
+												'end': 9,
+												'name': 'x'
+											}
+										},
+										{
+											'type': 'Property',
+											'start': 11,
+											'end': 15,
+											'method': false,
+											'shorthand': false,
+											'computed': false,
+											'key': {
+												'type': 'Identifier',
+												'start': 11,
+												'end': 12,
+												'name': 'y'
+											},
+											'value': {
+												'type': 'Identifier',
+												'start': 14,
+												'end': 15,
+												'name': 'z'
+											},
+											'kind': 'init'
+										},
+										{
+											'type': 'RestElement',
+											'start': 17,
+											'end': 24,
+											'argument': {
+												'type': 'Identifier',
+												'start': 20,
+												'end': 24,
+												'name': 'rest'
+											}
+										}
+									]
+								},
+								'init': {
+									'type': 'ObjectExpression',
+									'start': 29,
+									'end': 66,
+									'properties': [
+										{
+											'type': 'Property',
+											'start': 31,
+											'end': 36,
+											'method': false,
+											'shorthand': false,
+											'computed': false,
+											'key': {
+												'type': 'Identifier',
+												'start': 31,
+												'end': 32,
+												'name': 'x'
+											},
+											'value': {
+												'type': 'Literal',
+												'start': 34,
+												'end': 36,
+												'value': 10,
+												'raw': '10'
+											},
+											'kind': 'init'
+										},
+										{
+											'type': 'Property',
+											'start': 38,
+											'end': 43,
+											'method': false,
+											'shorthand': false,
+											'computed': false,
+											'key': {
+												'type': 'Identifier',
+												'start': 38,
+												'end': 39,
+												'name': 'y'
+											},
+											'value': {
+												'type': 'Literal',
+												'start': 41,
+												'end': 43,
+												'value': 20,
+												'raw': '20'
+											},
+											'kind': 'init'
+										},
+										{
+											'type': 'Property',
+											'start': 45,
+											'end': 50,
+											'method': false,
+											'shorthand': false,
+											'computed': false,
+											'key': {
+												'type': 'Identifier',
+												'start': 45,
+												'end': 46,
+												'name': 'z'
+											},
+											'value': {
+												'type': 'Literal',
+												'start': 48,
+												'end': 50,
+												'value': 30,
+												'raw': '30'
+											},
+											'kind': 'init'
+										},
+										{
+											'type': 'Property',
+											'start': 52,
+											'end': 57,
+											'method': false,
+											'shorthand': false,
+											'computed': false,
+											'key': {
+												'type': 'Identifier',
+												'start': 52,
+												'end': 53,
+												'name': 'w'
+											},
+											'value': {
+												'type': 'Literal',
+												'start': 55,
+												'end': 57,
+												'value': 40,
+												'raw': '40'
+											},
+											'kind': 'init'
+										},
+										{
+											'type': 'Property',
+											'start': 59,
+											'end': 64,
+											'method': false,
+											'shorthand': false,
+											'computed': false,
+											'key': {
+												'type': 'Identifier',
+												'start': 59,
+												'end': 60,
+												'name': 'k'
+											},
+											'value': {
+												'type': 'Literal',
+												'start': 62,
+												'end': 64,
+												'value': 50,
+												'raw': '50'
+											},
+											'kind': 'init'
+										}
+									]
+								}
+							}
+						],
+						'kind': 'const'
+					}
+				],
+				'sourceType': 'module'
+			};
+
+			var scope = attachScopes(ast, 'scope');
+			assert.ok(scope.contains('x'));
+			assert.ok(!scope.contains('y'));
+			assert.ok(scope.contains('z'));
+			assert.ok(scope.contains('rest'));
+		});
+
 		it('adds nested declarators from a deconstructed declaration', function () {
 			var ast = {
 				'type': 'Program',
