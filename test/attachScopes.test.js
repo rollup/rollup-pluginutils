@@ -1,5 +1,5 @@
-var assert = require( 'assert' );
-var attachScopes = require( '..' ).attachScopes;
+const assert = require( 'assert' );
+const {attachScopes} = require( '..' );
 
 describe( 'attachScopes', function () {
 	it( 'attaches a scope to the top level', function () {

@@ -1,5 +1,5 @@
 const assert = require( 'assert' );
-const addExtension = require( '..' ).addExtension;
+const {addExtension} = require( '..' );
 
 describe( 'addExtension', function () {
 	it( 'adds .js to an ID without an extension', function () {

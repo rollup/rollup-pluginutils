@@ -1,5 +1,5 @@
-var assert = require( 'assert' );
-var dataToEsm = require( '..' ).dataToEsm;
+const assert = require( 'assert' );
+const {dataToEsm} = require( '..' );
 
 describe( 'dataToEsm', function () {
 	it( 'outputs treeshakeable data', function () {
