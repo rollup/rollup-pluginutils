@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "estree-walker": "^0.5.2",
-    "micromatch": "^2.3.11"
+    "micromatch": "^3.1.10"
   },
   "repository": "rollup/rollup-pluginutils",
   "keywords": [
