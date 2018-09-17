@@ -1,5 +1,6 @@
 {
   "abstract": true,
+  "arguments": true,
   "await": true,
   "boolean": true,
   "break": true,

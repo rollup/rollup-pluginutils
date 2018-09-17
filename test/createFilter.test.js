@@ -1,6 +1,6 @@
-var path = require( 'path' );
-var assert = require( 'assert' );
-var createFilter = require( '..' ).createFilter;
+const path = require( 'path' );
+const assert = require( 'assert' );
+const {createFilter} = require( '..' );
 
 describe( 'createFilter', function () {
 	it( 'includes by default', function () {
