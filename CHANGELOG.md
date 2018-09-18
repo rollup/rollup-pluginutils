@@ -1,5 +1,11 @@
 # rollup-pluginutils changelog
 
+## 2.3.2
+*2017-09-18*
+* Bumb micromatch dependency ([#36](https://github.com/rollup/rollup-pluginutils/issues/36))
+* Bumb dependencies ([#41](https://github.com/rollup/rollup-pluginutils/issues/41))
+* Split up tests ([#40](https://github.com/rollup/rollup-pluginutils/issues/40))
+
 ## 2.3.1
 *2017-08-06*
 * Fixed ObjectPattern scope in attachScopes to recognise { ...rest } syntax ([#37](https://github.com/rollup/rollup-pluginutils/issues/37))
