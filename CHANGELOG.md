@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 2.3.3
+*2017-09-19*
+* Revert micromatch update ([#43](https://github.com/rollup/rollup-pluginutils/issues/43))
+
 ## 2.3.2
 *2017-09-18*
 * Bumb micromatch dependency ([#36](https://github.com/rollup/rollup-pluginutils/issues/36))
