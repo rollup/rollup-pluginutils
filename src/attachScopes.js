@@ -57,9 +57,10 @@ class Scope {
 
 		if ( options.params ) {
 			options.params.forEach( param => {
-				extractNames( param ).forEach( name => {
-					this.declarations[ name ] = true;
-				});
+				if (param)
+					extractNames( param ).forEach( name => {
+						this.declarations[ name ] = true;
+					});
 			});
 		}
 	}
