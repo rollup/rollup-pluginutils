@@ -5,21 +5,30 @@
   "main": "dist/pluginutils.cjs.js",
   "module": "dist/pluginutils.es.js",
   "jsnext:main": "dist/pluginutils.es.js",
+  "typings": "src/index.d.ts",
   "files": [
     "src",
     "dist",
     "README.md"
   ],
   "devDependencies": {
+    "@types/estree": "0.0.39",
+    "@types/jest": "^23.3.10",
+    "@types/micromatch": "^3.1.0",
+    "@types/node": "^10.12.18",
     "eslint": "^5.6.0",
+    "eslint-plugin-typescript": "^0.14.0",
     "husky": "^0.14.3",
+    "jest": "^23.6.0",
     "lint-staged": "^7.2.2",
-    "mocha": "^5.2.0",
     "rollup": "^0.66.0",
-    "rollup-plugin-buble": "^0.19.2"
+    "rollup-plugin-typescript": "^1.0.0",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.2.2",
+    "typescript-eslint-parser": "^21.0.2"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "jest",
     "build": "rollup -c",
     "lint": "eslint --fix src test",
     "pretest": "npm run build",

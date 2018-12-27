@@ -1,6 +1,8 @@
 import makeLegalIdentifier from './makeLegalIdentifier';
 
-function serializeArray (arr, indent, baseIndent) {
+export type Indent = string | null | undefined;
+
+function serializeArray<T> (arr: Array<T>, indent: Indent, baseIndent: string): string {
 	let output = '[';
 	const separator = indent ? '\n' + baseIndent + indent : '';
 	for (let i = 0; i < arr.length; i++) {
@@ -10,7 +12,7 @@ function serializeArray (arr, indent, baseIndent) {
 	return output + `${ indent ? '\n' + baseIndent : '' }]`;
 }
 
-function serializeObject (obj, indent, baseIndent) {
+function serializeObject<T> (obj: { [key: string]: T }, indent: Indent, baseIndent: string): string {
 	let output = '{';
 	const separator = indent ? '\n' + baseIndent + indent : '';
 	const keys = Object.keys(obj);
@@ -22,7 +24,7 @@ function serializeObject (obj, indent, baseIndent) {
 	return output + `${ indent ? '\n' + baseIndent : '' }}`;
 }
 
-function serialize (obj, indent, baseIndent) {
+function serialize (obj: any, indent: Indent, baseIndent: string): string {
 	if (obj === Infinity)
 		return 'Infinity';
 	if (obj instanceof Date)
@@ -40,8 +42,19 @@ function serialize (obj, indent, baseIndent) {
 	return JSON.stringify(obj);
 }
 
+export interface Options {
+	compact?: boolean;
+	indent?: string;
+	namedExports?: boolean;
+	objectShorthand?: boolean;
+	preferConst?: boolean;
+}
+
 // convert data object into separate named exports (and default)
-export default function dataToNamedExports (data, options = {}) {
+export default function dataToNamedExports<T extends { [key: string]: any }> (
+	data: T | Array<T>,
+	options: Options = {}
+): string {
 	const t = options.compact ? '' : 'indent' in options ? options.indent : '\t';
 	const _ = options.compact ? '' : ' ';
 	const n = options.compact ? '' : '\n';

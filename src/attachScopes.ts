@@ -1,21 +1,25 @@
-import { walk } from 'estree-walker';
+import { walk, Node } from 'estree-walker';
 
 const blockDeclarations = {
 	'const': true,
 	'let': true
 };
 
-const extractors = {
-	Literal ( names, param ) {
-		names.push( param.value );
+interface Extractors {
+	[ key: string ]: ( names: Array<string>, param: Node ) => void;
+}
+
+const extractors: Extractors = {
+	Literal ( names: Array<string>, param: Node ) {
+		names.push( param.value as string );
 	},
 
-	Identifier ( names, param ) {
+	Identifier ( names: Array<string>, param: Node ) {
 		names.push( param.name );
 	},
 
-	ObjectPattern ( names, param ) {
-		param.properties.forEach( prop => {
+	ObjectPattern ( names: Array<string>, param: Node ) {
+		param.properties.forEach( ( prop: Node ) => {
 			if ( prop.type === 'RestElement' ) {
 				extractors.RestElement( names, prop );
 			} else {
@@ -24,32 +28,40 @@ const extractors = {
 		});
 	},
 
-	ArrayPattern ( names, param ) {
-		param.elements.forEach( element => {
+	ArrayPattern ( names: Array<string>, param: Node ) {
+		param.elements.forEach( ( element: Node ) => {
 			if ( element ) extractors[ element.type ]( names, element );
 		});
 	},
 
-	RestElement ( names, param ) {
+	RestElement ( names: Array<string>, param: Node ) {
 		extractors[ param.argument.type ]( names, param.argument );
 	},
 
-	AssignmentPattern ( names, param ) {
+	AssignmentPattern ( names: Array<string>, param: Node ) {
 		return extractors[ param.left.type ]( names, param.left );
 	}
 };
 
-function extractNames ( param ) {
-	let names = [];
+function extractNames ( param: Node ): Array<string> {
+	let names: Array<string> = [];
 
 	extractors[ param.type ]( names, param );
 	return names;
 }
 
-class Scope {
-	constructor ( options ) {
-		options = options || {};
+interface ScopeOptions {
+	parent?: Scope;
+	block?: boolean;
+	params?: Array<Node>;
+}
 
+class Scope {
+	parent?: Scope;
+	isBlockScope: boolean;
+	declarations: { [ key: string ]: boolean };
+
+	constructor ( options: ScopeOptions = {} ) {
 		this.parent = options.parent;
 		this.isBlockScope = !!options.block;
 
@@ -64,11 +76,11 @@ class Scope {
 		}
 	}
 
-	addDeclaration ( node, isBlockDeclaration, isVar ) {
+	addDeclaration ( node: Node, isBlockDeclaration: boolean, isVar: boolean ): void {
 		if ( !isBlockDeclaration && this.isBlockScope ) {
 			// it's a `var` or function node, and this
 			// is a block scope, so we need to go up
-			this.parent.addDeclaration( node, isBlockDeclaration, isVar );
+			this.parent!.addDeclaration( node, isBlockDeclaration, isVar );
 		} else if ( node.id ) {
 			extractNames( node.id ).forEach( name => {
 				this.declarations[ name ] = true;
@@ -76,14 +88,14 @@ class Scope {
 		}
 	}
 
-	contains ( name ) {
+	contains ( name: string ): boolean {
 		return this.declarations[ name ] ||
 		       ( this.parent ? this.parent.contains( name ) : false );
 	}
 }
 
 
-export default function attachScopes ( ast, propertyName = 'scope' ) {
+export default function attachScopes ( ast: Node, propertyName: string = 'scope' ): Scope {
 	let scope = new Scope();
 
 	walk( ast, {
@@ -96,14 +108,15 @@ export default function attachScopes ( ast, propertyName = 'scope' ) {
 
 			// var foo = 1
 			if ( node.type === 'VariableDeclaration' ) {
-				const isBlockDeclaration = blockDeclarations[ node.kind ];
+				const kind: keyof typeof blockDeclarations = node.kind;
+				const isBlockDeclaration = blockDeclarations[ kind ];
 
-				node.declarations.forEach( declaration => {
+				node.declarations.forEach( ( declaration: Node ) => {
 					scope.addDeclaration( declaration, isBlockDeclaration, true );
 				});
 			}
 
-			let newScope;
+			let newScope: Scope | undefined;
 
 			// create new function scope
 			if ( /Function/.test( node.type ) ) {
@@ -121,7 +134,7 @@ export default function attachScopes ( ast, propertyName = 'scope' ) {
 			}
 
 			// create new block scope
-			if ( node.type === 'BlockStatement' && !/Function/.test( parent.type ) ) {
+			if ( node.type === 'BlockStatement' && !/Function/.test( parent!.type ) ) {
 				newScope = new Scope({
 					parent: scope,
 					block: true
@@ -147,7 +160,7 @@ export default function attachScopes ( ast, propertyName = 'scope' ) {
 			}
 		},
 		leave ( node ) {
-			if ( node[ propertyName ] ) scope = scope.parent;
+			if ( node[ propertyName ] ) scope = scope.parent!;
 		}
 	});
 

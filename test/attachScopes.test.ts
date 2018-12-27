@@ -1,9 +1,8 @@
-var assert = require( 'assert' );
-var attachScopes = require( '..' ).attachScopes;
+import { attachScopes } from '../src/index';
 
 describe( 'attachScopes', function () {
 	it( 'attaches a scope to the top level', function () {
-		var ast = {
+		const ast = {
 			'type': 'Program',
 			'start': 0,
 			'end': 8,
@@ -32,13 +31,13 @@ describe( 'attachScopes', function () {
 			'sourceType': 'module'
 		};
 
-		var scope = attachScopes( ast, 'scope' );
-		assert.ok( scope.contains( 'foo' ) );
-		assert.ok( !scope.contains( 'bar' ) );
+		const scope = attachScopes( ast, 'scope' );
+		expect( scope.contains( 'foo' ) ).toBeTruthy();
+		expect( scope.contains( 'bar' ) ).toBeFalsy();
 	});
 
 	it( 'adds multiple declarators from a single var declaration', function () {
-		var ast = {
+		const ast = {
 			'type': 'Program',
 			'start': 0,
 			'end': 13,
@@ -80,13 +79,13 @@ describe( 'attachScopes', function () {
 			'sourceType': 'module'
 		};
 
-		var scope = attachScopes( ast, 'scope' );
-		assert.ok( scope.contains( 'foo' ) );
-		assert.ok( scope.contains( 'bar' ) );
+		const scope = attachScopes( ast, 'scope' );
+		expect( scope.contains( 'foo' ) ).toBeTruthy();
+		expect( scope.contains( 'bar' ) ).toBeTruthy();
 	});
 
 	it('adds named declarators from a deconstructed declaration', function () {
-		var ast = {
+		const ast = {
 			'type': 'Program',
 			'start': 0,
 			'end': 13,
@@ -209,13 +208,13 @@ describe( 'attachScopes', function () {
 			'sourceType': 'module'
 		};
 
-		var scope = attachScopes(ast, 'scope');
-		assert.ok(scope.contains('a'));
-		assert.ok(scope.contains('b'));
+		const scope = attachScopes(ast, 'scope');
+		expect( scope.contains('a') ).toBeTruthy();
+		expect( scope.contains('b') ).toBeTruthy();
 	});
 
 	it( 'adds rest elements from a deconstructed object declaration', function () {
-		var ast = {
+		const ast = {
 			'type': 'Program',
 			'start': 0,
 			'end': 66,
@@ -414,15 +413,15 @@ describe( 'attachScopes', function () {
 			'sourceType': 'module'
 		};
 
-		var scope = attachScopes(ast, 'scope');
-		assert.ok(scope.contains('x'));
-		assert.ok(!scope.contains('y'));
-		assert.ok(scope.contains('z'));
-		assert.ok(scope.contains('rest'));
+		const scope = attachScopes(ast, 'scope');
+		expect( scope.contains('x') ).toBeTruthy();
+		expect( scope.contains('y') ).toBeFalsy();
+		expect( scope.contains('z') ).toBeTruthy();
+		expect( scope.contains('rest') ).toBeTruthy();
 	});
 
 	it('adds nested declarators from a deconstructed declaration', function () {
-		var ast = {
+		const ast = {
 			'type': 'Program',
 			'start': 0,
 			'end': 40,
@@ -533,14 +532,14 @@ describe( 'attachScopes', function () {
 			'sourceType': 'module'
 		};
 
-		var scope = attachScopes(ast, 'scope');
-		assert.ok(!scope.contains('a'));
-		assert.ok(!scope.contains('b'));
-		assert.ok(scope.contains('c'));
+		const scope = attachScopes(ast, 'scope');
+		expect( scope.contains('a') ).toBeFalsy();
+		expect( scope.contains('b') ).toBeFalsy();
+		expect( scope.contains('c') ).toBeTruthy();
 	});
 
 	it( 'supports FunctionDeclarations without id', function () {
-		var ast = {
+		const ast = {
 			'type': 'Program',
 			'start': 0,
 			'end': 33,
@@ -570,7 +569,8 @@ describe( 'attachScopes', function () {
 			'sourceType': 'module'
 			  };
 
-		attachScopes( ast, 'scope' );
-		// does not throw
+		expect(() => {
+			attachScopes( ast, 'scope' );
+		}).not.toThrow();
 	});
 });

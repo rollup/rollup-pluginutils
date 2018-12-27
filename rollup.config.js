@@ -1,9 +1,9 @@
-var pkg = require('./package.json');
-import buble from 'rollup-plugin-buble';
+import pkg from './package.json';
+import typescript from 'rollup-plugin-typescript';
 
 export default {
-	input: 'src/index.js',
-	plugins: [ buble() ],
+	input: 'src/index.ts',
+	plugins: [ typescript() ],
 	external: [ 'path', 'estree-walker', 'micromatch', 'tosource' ],
 
 	output: [
