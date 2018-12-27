@@ -9,14 +9,13 @@ init:
 
 environment:
   matrix:
-    - nodejs_version: 4
     - nodejs_version: 6
     - nodejs_version: 8
     - nodejs_version: 10
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - IF %nodejs_version% LSS 7 npm -g install npm@4
+  - IF %nodejs_version% LSS 8 npm -g install npm@5
   - npm install
 
 build: off
