@@ -1,4 +1,9 @@
 .DS_Store
 node_modules
 dist
-.gobble*
+*.js
+*.d.ts
+*.js.map
+
+!rollup.config.js
+!jest.config.js

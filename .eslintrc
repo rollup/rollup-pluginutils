@@ -8,15 +8,18 @@
         "space-before-blocks": [ 2, "always" ],
         "space-before-function-paren": [ 2, "always" ],
         "no-mixed-spaces-and-tabs": [ 2, "smart-tabs" ],
-        "no-cond-assign": [ 0 ]
+        "no-cond-assign": [ 0 ],
+        "typescript/no-unused-vars": [ 2 ]
     },
     "env": {
         "es6": true,
         "browser": true,
-        "mocha": true,
+        "jest": true,
         "node": true
     },
     "extends": "eslint:recommended",
+    "plugins": ["typescript"],
+    "parser": "typescript-eslint-parser",
     "parserOptions": {
         "ecmaVersion": 8,
         "sourceType": "module"
