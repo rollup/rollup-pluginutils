@@ -43,7 +43,7 @@ import { walk } from 'estree-walker';
 export default function myPlugin ( options = {} ) {
   return {
     transform ( code ) {
-      const ast = parse( ast, {
+      const ast = parse( code, {
         ecmaVersion: 6,
         sourceType: 'module'
       });
