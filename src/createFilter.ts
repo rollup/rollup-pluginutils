@@ -1,4 +1,4 @@
-import mm from 'micromatch';
+import * as mm from 'micromatch';
 import { resolve, sep } from 'path';
 import ensureArray from './utils/ensureArray';
 
