@@ -1,0 +1,13 @@
+{
+	"defaultSeverity": "error",
+	"rules": {
+		"arrow-return-shorthand": true,
+		"interface-over-type-literal": true,
+		"no-string-literal": true,
+		"no-unnecessary-type-assertion": true,
+		"object-literal-shorthand": true,
+		"ordered-imports": true,
+		"prefer-const": [true, { "destructuring": "all" }],
+        "prefer-object-spread": true
+	}
+}
