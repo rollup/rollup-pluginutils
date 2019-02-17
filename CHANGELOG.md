@@ -1,33 +1,45 @@
 # rollup-pluginutils changelog
 
+## 2.4.1
+*2019-02-16*
+* Remove unnecessary dependency
+
+## 2.4.0
+*2019-02-16*
+Update dependencies to solve micromatch vulnerability ([#53](https://github.com/rollup/rollup-pluginutils/issues/53))
+
 ## 2.3.3
-*2017-09-19*
+*2018-09-19*
 * Revert micromatch update ([#43](https://github.com/rollup/rollup-pluginutils/issues/43))
 
 ## 2.3.2
-*2017-09-18*
+*2018-09-18*
 * Bumb micromatch dependency ([#36](https://github.com/rollup/rollup-pluginutils/issues/36))
 * Bumb dependencies ([#41](https://github.com/rollup/rollup-pluginutils/issues/41))
 * Split up tests ([#40](https://github.com/rollup/rollup-pluginutils/issues/40))
 
 ## 2.3.1
-*2017-08-06*
+*2018-08-06*
 * Fixed ObjectPattern scope in attachScopes to recognise { ...rest } syntax ([#37](https://github.com/rollup/rollup-pluginutils/issues/37))
 
 ## 2.3.0
-*2017-05-21*
+*2018-05-21*
 * Add option to not generate named exports ([#32](https://github.com/rollup/rollup-pluginutils/issues/32))
 
 ## 2.2.1
-*2017-05-21*
+*2018-05-21*
 * Support `null` serialization ([#34](https://github.com/rollup/rollup-pluginutils/issues/34))
 
 ## 2.2.0
-*2017-05-11*
+*2018-05-11*
 * Improve white-space handling in `dataToEsm` and add `prepare` script ([#31](https://github.com/rollup/rollup-pluginutils/issues/31))
 
+## 2.1.1
+*2018-05-09*
+* Update dependencies
+
 ## 2.1.0
-*2017-05-07*
+*2018-05-08*
 * Add `dataToEsm` helper to create named exports from objects ([#29](https://github.com/rollup/rollup-pluginutils/issues/29))
 * Support literal keys in object patterns ([#27](https://github.com/rollup/rollup-pluginutils/issues/27))
 * Support function declarations without id in `attachScopes` ([#28](https://github.com/rollup/rollup-pluginutils/issues/28))
