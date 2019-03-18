@@ -48,10 +48,7 @@ export interface Options {
 }
 
 // convert data object into separate named exports (and default)
-export default function dataToNamedExports<T extends { [key: string]: any }>(
-	data: T | Array<T>,
-	options: Options = {}
-): string {
+export default function dataToNamedExports(data: any, options: Options = {}): string {
 	const t = options.compact ? '' : 'indent' in options ? options.indent : '\t';
 	const _ = options.compact ? '' : ' ';
 	const n = options.compact ? '' : '\n';
