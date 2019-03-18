@@ -73,4 +73,10 @@ describe('dataToEsm', function() {
 	it('exports default only for primitive values', function() {
 		expect(dataToEsm('some string')).toEqual('export default "some string";');
 	});
+
+	it('supports empty keys', function() {
+		expect(dataToEsm({ a: 'x', '': 'y' })).toEqual(
+			'export var a = "x";\nexport default {\n\ta: a,\n' + '\t"": "y"\n};\n'
+		);
+	});
 });
