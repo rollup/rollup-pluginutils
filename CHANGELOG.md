@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 2.4.2
+*unreleased*
+* Generalize dataToEsm type ([#55](https://github.com/rollup/rollup-pluginutils/issues/55))
+
 ## 2.4.1
 *2019-02-16*
 * Remove unnecessary dependency
