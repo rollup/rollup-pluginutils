@@ -50,7 +50,7 @@ describe('dataToEsm', function() {
 		);
 	});
 
-	it('supports null serialize', function() {
+	it('serializes null', function() {
 		expect(dataToEsm({ null: null })).toEqual('export default {\n\t"null": null\n};\n');
 	});
 
@@ -61,8 +61,16 @@ describe('dataToEsm', function() {
 		);
 	});
 
-	it('default only for non-objects', function() {
+	it('exports default only for arrays', function() {
 		const arr = ['a', 'b'];
 		expect(dataToEsm(arr)).toEqual('export default [\n\t"a",\n\t"b"\n];');
+	});
+
+	it('exports default only for null', function() {
+		expect(dataToEsm(null)).toEqual('export default null;');
+	});
+
+	it('exports default only for primitive values', function() {
+		expect(dataToEsm('some string')).toEqual('export default "some string";');
 	});
 });
