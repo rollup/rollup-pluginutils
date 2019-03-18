@@ -1,8 +1,9 @@
 # rollup-pluginutils changelog
 
-## 2.4.2
-*unreleased*
+## 2.5.0
+*2019-03-18*
 * Generalize dataToEsm type ([#55](https://github.com/rollup/rollup-pluginutils/issues/55))
+* Handle empty keys in dataToEsm ([#56](https://github.com/rollup/rollup-pluginutils/issues/56))
 
 ## 2.4.1
 *2019-02-16*
