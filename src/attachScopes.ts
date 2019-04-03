@@ -1,4 +1,5 @@
 import { Node, walk } from 'estree-walker';
+import { AttachedScope, AttachScopes } from './pluginutils';
 
 const blockDeclarations = {
 	const: true,
@@ -51,13 +52,13 @@ function extractNames(param: Node): Array<string> {
 }
 
 interface ScopeOptions {
-	parent?: Scope;
+	parent?: AttachedScope;
 	block?: boolean;
 	params?: Array<Node>;
 }
 
-class Scope {
-	parent?: Scope;
+class Scope implements AttachedScope {
+	parent?: AttachedScope;
 	isBlockScope: boolean;
 	declarations: { [key: string]: boolean };
 
@@ -93,7 +94,7 @@ class Scope {
 	}
 }
 
-export default function attachScopes(ast: Node, propertyName: string = 'scope'): Scope {
+const attachScopes: AttachScopes = function attachScopes(ast, propertyName = 'scope') {
 	let scope = new Scope();
 
 	walk(ast, {
@@ -114,7 +115,7 @@ export default function attachScopes(ast: Node, propertyName: string = 'scope'):
 				});
 			}
 
-			let newScope: Scope | undefined;
+			let newScope: AttachedScope | undefined;
 
 			// create new function scope
 			if (/Function/.test(node.type)) {
@@ -163,4 +164,6 @@ export default function attachScopes(ast: Node, propertyName: string = 'scope'):
 	});
 
 	return scope;
-}
+};
+
+export { attachScopes as default };
