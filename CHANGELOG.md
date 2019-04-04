@@ -1,5 +1,10 @@
 # rollup-pluginutils changelog
 
+## 2.6.0
+*2019-04-04*
+* Add `extractAssignedNames` ([#59](https://github.com/rollup/rollup-pluginutils/issues/59))
+* Provide dedicated TypeScript typings file ([#58](https://github.com/rollup/rollup-pluginutils/issues/58))
+
 ## 2.5.0
 *2019-03-18*
 * Generalize dataToEsm type ([#55](https://github.com/rollup/rollup-pluginutils/issues/55))
