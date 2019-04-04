@@ -37,16 +37,12 @@ See [rollup-plugin-inject](https://github.com/rollup/rollup-plugin-inject) or [r
 
 ```js
 import { attachScopes } from 'rollup-pluginutils';
-import { parse } from 'acorn';
 import { walk } from 'estree-walker';
 
 export default function myPlugin ( options = {} ) {
   return {
     transform ( code ) {
-      const ast = parse( code, {
-        ecmaVersion: 6,
-        sourceType: 'module'
-      });
+      const ast = this.parse( code );
 
       let scope = attachScopes( ast, 'scope' );
 
@@ -126,6 +122,33 @@ Outputs the string ES module source:
   export const to = ['treeshake'];
   export default { custom, to };
 */
+```
+
+### extractAssignedNames
+
+Extract the names of all assignment targets from patterns.
+
+```js
+import { extractAssignedNames } from 'rollup-pluginutils';
+import { walk } from 'estree-walker';
+
+export default function myPlugin ( options = {} ) {
+  return {
+    transform ( code ) {
+      const ast = this.parse( code );
+
+      walk( ast, {
+        enter ( node ) {
+          if ( node.type === 'VariableDeclarator' ) {
+          	const declaredNames = extractAssignedNames(node.id);
+          	// do something with the declared names
+          	// e.g. for `const {x, y: z} = ... => declaredNames = ['x', 'z']
+          }
+        }
+      });
+    }
+  };
+}
 ```
 
 

@@ -33,3 +33,6 @@ export const makeLegalIdentifier: MakeLegalIdentifier;
 
 export type DataToEsm = (data: any, options?: DataToEsmOptions) => string;
 export const dataToEsm: DataToEsm;
+
+export type ExtractAssignedNames = (param: Node) => Array<string>;
+export const extractAssignedNames: ExtractAssignedNames;
