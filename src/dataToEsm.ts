@@ -1,4 +1,5 @@
 import makeLegalIdentifier from './makeLegalIdentifier';
+import { DataToEsm } from './pluginutils';
 
 export type Indent = string | null | undefined;
 
@@ -39,16 +40,7 @@ function serialize(obj: any, indent: Indent, baseIndent: string): string {
 	return JSON.stringify(obj);
 }
 
-export interface Options {
-	compact?: boolean;
-	indent?: string;
-	namedExports?: boolean;
-	objectShorthand?: boolean;
-	preferConst?: boolean;
-}
-
-// convert data object into separate named exports (and default)
-export default function dataToNamedExports(data: any, options: Options = {}): string {
+const dataToEsm: DataToEsm = function dataToEsm(data, options = {}) {
 	const t = options.compact ? '' : 'indent' in options ? options.indent : '\t';
 	const _ = options.compact ? '' : ' ';
 	const n = options.compact ? '' : '\n';
@@ -84,4 +76,6 @@ export default function dataToNamedExports(data: any, options: Options = {}): st
 	return (
 		namedExportCode + `export default${_}{${n}${t}${defaultExportRows.join(`,${n}${t}`)}${n}};${n}`
 	);
-}
+};
+
+export { dataToEsm as default };

@@ -1,3 +1,5 @@
+import { MakeLegalIdentifier } from './pluginutils';
+
 const reservedWords =
 	'break case class catch const continue debugger default delete do else export extends finally for function if import in instanceof let new return super switch this throw try typeof var void while with yield enum await implements package protected static interface private public';
 const builtins =
@@ -6,7 +8,7 @@ const builtins =
 const forbiddenIdentifiers = new Set<string>(`${reservedWords} ${builtins}`.split(' '));
 forbiddenIdentifiers.add('');
 
-export default function makeLegalIdentifier(str: string): string {
+export const makeLegalIdentifier: MakeLegalIdentifier = function makeLegalIdentifier(str) {
 	str = str.replace(/-(\w)/g, (_, letter) => letter.toUpperCase()).replace(/[^$_a-zA-Z0-9]/g, '_');
 
 	if (/\d/.test(str[0]) || forbiddenIdentifiers.has(str)) {
@@ -14,4 +16,6 @@ export default function makeLegalIdentifier(str: string): string {
 	}
 
 	return str;
-}
+};
+
+export { makeLegalIdentifier as default };

@@ -1,13 +1,11 @@
 import * as mm from 'micromatch';
 import { resolve, sep } from 'path';
+import { CreateFilter } from './pluginutils';
 import ensureArray from './utils/ensureArray';
 
-export default function createFilter(
-	include?: Array<string | RegExp> | string | RegExp | null,
-	exclude?: Array<string | RegExp> | string | RegExp | null
-): (id: string | any) => boolean {
+const createFilter: CreateFilter = function createFilter(include?, exclude?) {
 	const getMatcher = (id: string | RegExp) =>
-		isRegexp(id)
+		id instanceof RegExp
 			? id
 			: {
 					test: mm.matcher(
@@ -38,8 +36,6 @@ export default function createFilter(
 
 		return !includeMatchers.length;
 	};
-}
+};
 
-function isRegexp(val: any): val is RegExp {
-	return val instanceof RegExp;
-}
+export { createFilter as default };
