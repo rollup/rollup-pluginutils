@@ -1,55 +1,11 @@
 import { Node, walk } from 'estree-walker';
+import extractAssignedNames from './extractAssignedNames';
 import { AttachedScope, AttachScopes } from './pluginutils';
 
 const blockDeclarations = {
 	const: true,
 	let: true
 };
-
-interface Extractors {
-	[key: string]: (names: Array<string>, param: Node) => void;
-}
-
-const extractors: Extractors = {
-	Literal(names: Array<string>, param: Node) {
-		names.push(param.value as string);
-	},
-
-	Identifier(names: Array<string>, param: Node) {
-		names.push(param.name);
-	},
-
-	ObjectPattern(names: Array<string>, param: Node) {
-		param.properties.forEach((prop: Node) => {
-			if (prop.type === 'RestElement') {
-				extractors.RestElement(names, prop);
-			} else {
-				extractors[(prop.value || prop.key).type](names, prop.value || prop.key);
-			}
-		});
-	},
-
-	ArrayPattern(names: Array<string>, param: Node) {
-		param.elements.forEach((element: Node) => {
-			if (element) extractors[element.type](names, element);
-		});
-	},
-
-	RestElement(names: Array<string>, param: Node) {
-		extractors[param.argument.type](names, param.argument);
-	},
-
-	AssignmentPattern(names: Array<string>, param: Node) {
-		return extractors[param.left.type](names, param.left);
-	}
-};
-
-function extractNames(param: Node): Array<string> {
-	const names: Array<string> = [];
-
-	extractors[param.type](names, param);
-	return names;
-}
 
 interface ScopeOptions {
 	parent?: AttachedScope;
@@ -70,7 +26,7 @@ class Scope implements AttachedScope {
 
 		if (options.params) {
 			options.params.forEach(param => {
-				extractNames(param).forEach(name => {
+				extractAssignedNames(param).forEach(name => {
 					this.declarations[name] = true;
 				});
 			});
@@ -83,7 +39,7 @@ class Scope implements AttachedScope {
 			// is a block scope, so we need to go up
 			this.parent!.addDeclaration(node, isBlockDeclaration, isVar);
 		} else if (node.id) {
-			extractNames(node.id).forEach(name => {
+			extractAssignedNames(node.id).forEach(name => {
 				this.declarations[name] = true;
 			});
 		}
