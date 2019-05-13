@@ -72,7 +72,10 @@ import { createFilter } from 'rollup-pluginutils';
 
 export default function myPlugin ( options = {} ) {
   // `options.include` and `options.exclude` can each be a minimatch
-  // pattern, or an array of minimatch patterns, relative to process.cwd()
+  // pattern, or an array of minimatch patterns, relative to process.cwd();
+  // if you want to resolve relative to a different directory, you can pass
+  // a base directory as an option:
+  // createFilter( options.include, options.exclude, {baseDir: '/my/base/dir'} );
   var filter = createFilter( options.include, options.exclude );
 
   return {
@@ -88,6 +91,9 @@ export default function myPlugin ( options = {} ) {
   };
 }
 ```
+
+By default, `createFilter` will resolve ids relative to `process.cwd()`. You can optionally pass a `baseDir` to resolve relative to other directories:
+
 
 
 ### makeLegalIdentifier

@@ -58,4 +58,27 @@ describe('createFilter', function() {
 		expect(filter(path.resolve('a/b.js'))).toBeFalsy();
 		expect(filter(path.resolve('a/b.jsx'))).toBeFalsy();
 	});
+
+	it('allows setting an absolute base dir', () => {
+		const filter = createFilter(['y*'], ['yx'], { baseDir: '/C' });
+		expect(filter('/C/x')).toBeFalsy();
+		expect(filter('/C/ys')).toBeTruthy();
+		expect(filter('/C/yx')).toBeFalsy();
+	});
+
+	it('allows setting a relative base dir', () => {
+		const filter = createFilter(['y*'], ['yx'], { baseDir: 'C/d' });
+		const basePath = path.resolve('C/d');
+		expect(filter(path.resolve('C/d', '/C/x'))).toBeFalsy();
+		expect(filter(path.resolve('C/d', '/C/ys'))).toBeFalsy();
+		expect(filter(path.resolve('C/d', '/C/yx'))).toBeFalsy();
+	});
+
+	it('ignores a falsy base dir', () => {
+		const filter = createFilter(['y*'], ['yx'], { baseDir: null });
+		const basePath = path.resolve('C/d');
+		expect(filter(path.resolve('/C/x'))).toBeFalsy();
+		expect(filter(path.resolve('/C/ys'))).toBeFalsy();
+		expect(filter(path.resolve('/C/yx'))).toBeFalsy();
+	});
 });

@@ -3,13 +3,13 @@ import { resolve, sep } from 'path';
 import { CreateFilter } from './pluginutils';
 import ensureArray from './utils/ensureArray';
 
-const createFilter: CreateFilter = function createFilter(include?, exclude?) {
+const createFilter: CreateFilter = function createFilter(include?, exclude?, options?) {
 	const getMatcher = (id: string | RegExp) =>
 		id instanceof RegExp
 			? id
 			: {
 					test: mm.matcher(
-						resolve(id)
+						resolve(...(options && options.baseDir ? [options.baseDir, id] : [id]))
 							.split(sep)
 							.join('/')
 					)
