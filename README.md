@@ -72,10 +72,7 @@ import { createFilter } from 'rollup-pluginutils';
 
 export default function myPlugin ( options = {} ) {
   // `options.include` and `options.exclude` can each be a minimatch
-  // pattern, or an array of minimatch patterns, relative to process.cwd();
-  // if you want to resolve relative to a different directory, you can pass
-  // a base directory as an option:
-  // createFilter( options.include, options.exclude, {baseDir: '/my/base/dir'} );
+  // pattern, or an array of minimatch patterns, relative to process.cwd()
   var filter = createFilter( options.include, options.exclude );
 
   return {
@@ -92,8 +89,17 @@ export default function myPlugin ( options = {} ) {
 }
 ```
 
-By default, `createFilter` will resolve ids relative to `process.cwd()`. You can optionally pass a `baseDir` to resolve relative to other directories:
+If you want to resolve the patterns against a directory other than
+`process.cwd()`, you can additionally pass a `resolve` option:
 
+```js
+var filter = createFilter( options.include, options.exclude, {resolve: '/my/base/dir'} )
+```
+
+If `resolve` is a string, then this value will be used as the base directory.
+Relative paths will be resolved against `process.cwd()` first. If `resolve` is
+`false`, then the patterns will not be resolved against any directory. This can
+be useful if you want to create a filter for virtual module names.
 
 
 ### makeLegalIdentifier

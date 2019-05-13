@@ -60,25 +60,43 @@ describe('createFilter', function() {
 	});
 
 	it('allows setting an absolute base dir', () => {
-		const filter = createFilter(['y*'], ['yx'], { baseDir: '/C' });
+		const filter = createFilter(['y*'], ['yx'], { resolve: '/C' });
 		expect(filter('/C/x')).toBeFalsy();
 		expect(filter('/C/ys')).toBeTruthy();
 		expect(filter('/C/yx')).toBeFalsy();
+		expect(filter(path.resolve('C/d/ys'))).toBeFalsy();
+		expect(filter(path.resolve('ys'))).toBeFalsy();
+		expect(filter('ys')).toBeFalsy();
 	});
 
 	it('allows setting a relative base dir', () => {
-		const filter = createFilter(['y*'], ['yx'], { baseDir: 'C/d' });
-		const basePath = path.resolve('C/d');
-		expect(filter(path.resolve('C/d', '/C/x'))).toBeFalsy();
-		expect(filter(path.resolve('C/d', '/C/ys'))).toBeFalsy();
-		expect(filter(path.resolve('C/d', '/C/yx'))).toBeFalsy();
+		const filter = createFilter(['y*'], ['yx'], { resolve: 'C/d' });
+		expect(filter(path.resolve('C/d/x'))).toBeFalsy();
+		expect(filter(path.resolve('C/d/ys'))).toBeTruthy();
+		expect(filter(path.resolve('C/d/yx'))).toBeFalsy();
+		expect(filter('/C/ys')).toBeFalsy();
+		expect(filter(path.resolve('ys'))).toBeFalsy();
+		expect(filter('ys')).toBeFalsy();
 	});
 
-	it('ignores a falsy base dir', () => {
-		const filter = createFilter(['y*'], ['yx'], { baseDir: null });
+	it('ignores a falsy resolve value', () => {
+		const filter = createFilter(['y*'], ['yx'], { resolve: null });
+		expect(filter(path.resolve('x'))).toBeFalsy();
+		expect(filter(path.resolve('ys'))).toBeTruthy();
+		expect(filter(path.resolve('yx'))).toBeFalsy();
+		expect(filter('/C/ys')).toBeFalsy();
+		expect(filter(path.resolve('C/d/ys'))).toBeFalsy();
+		expect(filter('ys')).toBeFalsy();
+	});
+
+	it('allows preventing resolution against process.cwd()', () => {
+		const filter = createFilter(['y*'], ['yx'], { resolve: false });
 		const basePath = path.resolve('C/d');
-		expect(filter(path.resolve('/C/x'))).toBeFalsy();
-		expect(filter(path.resolve('/C/ys'))).toBeFalsy();
-		expect(filter(path.resolve('/C/yx'))).toBeFalsy();
+		expect(filter('x')).toBeFalsy();
+		expect(filter('ys')).toBeTruthy();
+		expect(filter('yx')).toBeFalsy();
+		expect(filter('/C/ys')).toBeFalsy();
+		expect(filter(path.resolve('C/d/ys'))).toBeFalsy();
+		expect(filter(path.resolve('ys'))).toBeFalsy();
 	});
 });
