@@ -60,10 +60,11 @@ describe('createFilter', function() {
 	});
 
 	it('allows setting an absolute base dir', () => {
-		const filter = createFilter(['y*'], ['yx'], { resolve: '/C' });
-		expect(filter('/C/x')).toBeFalsy();
-		expect(filter('/C/ys')).toBeTruthy();
-		expect(filter('/C/yx')).toBeFalsy();
+		const baseDir = path.resolve('C');
+		const filter = createFilter(['y*'], ['yx'], { resolve: baseDir });
+		expect(filter(baseDir + '/x')).toBeFalsy();
+		expect(filter(baseDir + '/ys')).toBeTruthy();
+		expect(filter(baseDir + '/yx')).toBeFalsy();
 		expect(filter(path.resolve('C/d/ys'))).toBeFalsy();
 		expect(filter(path.resolve('ys'))).toBeFalsy();
 		expect(filter('ys')).toBeFalsy();
@@ -74,7 +75,7 @@ describe('createFilter', function() {
 		expect(filter(path.resolve('C/d/x'))).toBeFalsy();
 		expect(filter(path.resolve('C/d/ys'))).toBeTruthy();
 		expect(filter(path.resolve('C/d/yx'))).toBeFalsy();
-		expect(filter('/C/ys')).toBeFalsy();
+		expect(filter(path.resolve('C') + '/ys')).toBeFalsy();
 		expect(filter(path.resolve('ys'))).toBeFalsy();
 		expect(filter('ys')).toBeFalsy();
 	});
@@ -84,7 +85,7 @@ describe('createFilter', function() {
 		expect(filter(path.resolve('x'))).toBeFalsy();
 		expect(filter(path.resolve('ys'))).toBeTruthy();
 		expect(filter(path.resolve('yx'))).toBeFalsy();
-		expect(filter('/C/ys')).toBeFalsy();
+		expect(filter(path.resolve('C') + '/ys')).toBeFalsy();
 		expect(filter(path.resolve('C/d/ys'))).toBeFalsy();
 		expect(filter('ys')).toBeFalsy();
 	});
@@ -95,7 +96,7 @@ describe('createFilter', function() {
 		expect(filter('x')).toBeFalsy();
 		expect(filter('ys')).toBeTruthy();
 		expect(filter('yx')).toBeFalsy();
-		expect(filter('/C/ys')).toBeFalsy();
+		expect(filter(path.resolve('C') + '/ys')).toBeFalsy();
 		expect(filter(path.resolve('C/d/ys'))).toBeFalsy();
 		expect(filter(path.resolve('ys'))).toBeFalsy();
 	});
