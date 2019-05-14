@@ -11,12 +11,14 @@ function getMatcherString(id: string, resolutionBase: string | false | null | un
 }
 
 const createFilter: CreateFilter = function createFilter(include?, exclude?, options?) {
+	const resolutionBase = options && options.resolve;
+
 	const getMatcher = (id: string | RegExp) => {
 		return id instanceof RegExp
 			? id
 			: {
 					test: mm.matcher(
-						getMatcherString(id, options && options.resolve)
+						getMatcherString(id, resolutionBase)
 							.split(sep)
 							.join('/')
 					)
@@ -28,7 +30,7 @@ const createFilter: CreateFilter = function createFilter(include?, exclude?, opt
 
 	return function(id: string | any): boolean {
 		if (typeof id !== 'string') return false;
-		if (/\0/.test(id)) return false;
+		if (resolutionBase !== false && /\0/.test(id)) return false;
 
 		id = id.split(sep).join('/');
 
