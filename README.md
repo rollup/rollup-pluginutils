@@ -89,6 +89,18 @@ export default function myPlugin ( options = {} ) {
 }
 ```
 
+If you want to resolve the patterns against a directory other than
+`process.cwd()`, you can additionally pass a `resolve` option:
+
+```js
+var filter = createFilter( options.include, options.exclude, {resolve: '/my/base/dir'} )
+```
+
+If `resolve` is a string, then this value will be used as the base directory.
+Relative paths will be resolved against `process.cwd()` first. If `resolve` is
+`false`, then the patterns will not be resolved against any directory. This can
+be useful if you want to create a filter for virtual module names.
+
 
 ### makeLegalIdentifier
 

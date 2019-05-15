@@ -3,17 +3,27 @@ import { resolve, sep } from 'path';
 import { CreateFilter } from './pluginutils';
 import ensureArray from './utils/ensureArray';
 
-const createFilter: CreateFilter = function createFilter(include?, exclude?) {
-	const getMatcher = (id: string | RegExp) =>
-		id instanceof RegExp
+function getMatcherString(id: string, resolutionBase: string | false | null | undefined) {
+	if (resolutionBase === false) {
+		return id;
+	}
+	return resolve(...(typeof resolutionBase === 'string' ? [resolutionBase, id] : [id]));
+}
+
+const createFilter: CreateFilter = function createFilter(include?, exclude?, options?) {
+	const resolutionBase = options && options.resolve;
+
+	const getMatcher = (id: string | RegExp) => {
+		return id instanceof RegExp
 			? id
 			: {
 					test: mm.matcher(
-						resolve(id)
+						getMatcherString(id, resolutionBase)
 							.split(sep)
 							.join('/')
 					)
 			  };
+	};
 
 	const includeMatchers = ensureArray(include).map(getMatcher);
 	const excludeMatchers = ensureArray(exclude).map(getMatcher);

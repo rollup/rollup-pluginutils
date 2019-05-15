@@ -24,7 +24,8 @@ export const attachScopes: AttachScopes;
 
 export type CreateFilter = (
 	include?: Array<string | RegExp> | string | RegExp | null,
-	exclude?: Array<string | RegExp> | string | RegExp | null
+	exclude?: Array<string | RegExp> | string | RegExp | null,
+	options?: { resolve?: string | false | null }
 ) => (id: string | any) => boolean;
 export const createFilter: CreateFilter;
 

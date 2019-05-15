@@ -58,4 +58,46 @@ describe('createFilter', function() {
 		expect(filter(path.resolve('a/b.js'))).toBeFalsy();
 		expect(filter(path.resolve('a/b.jsx'))).toBeFalsy();
 	});
+
+	it('allows setting an absolute base dir', () => {
+		const baseDir = path.resolve('C');
+		const filter = createFilter(['y*'], ['yx'], { resolve: baseDir });
+		expect(filter(baseDir + '/x')).toBeFalsy();
+		expect(filter(baseDir + '/ys')).toBeTruthy();
+		expect(filter(baseDir + '/yx')).toBeFalsy();
+		expect(filter(path.resolve('C/d/ys'))).toBeFalsy();
+		expect(filter(path.resolve('ys'))).toBeFalsy();
+		expect(filter('ys')).toBeFalsy();
+	});
+
+	it('allows setting a relative base dir', () => {
+		const filter = createFilter(['y*'], ['yx'], { resolve: 'C/d' });
+		expect(filter(path.resolve('C/d/x'))).toBeFalsy();
+		expect(filter(path.resolve('C/d/ys'))).toBeTruthy();
+		expect(filter(path.resolve('C/d/yx'))).toBeFalsy();
+		expect(filter(path.resolve('C') + '/ys')).toBeFalsy();
+		expect(filter(path.resolve('ys'))).toBeFalsy();
+		expect(filter('ys')).toBeFalsy();
+	});
+
+	it('ignores a falsy resolve value', () => {
+		const filter = createFilter(['y*'], ['yx'], { resolve: null });
+		expect(filter(path.resolve('x'))).toBeFalsy();
+		expect(filter(path.resolve('ys'))).toBeTruthy();
+		expect(filter(path.resolve('yx'))).toBeFalsy();
+		expect(filter(path.resolve('C') + '/ys')).toBeFalsy();
+		expect(filter(path.resolve('C/d/ys'))).toBeFalsy();
+		expect(filter('ys')).toBeFalsy();
+	});
+
+	it('allows preventing resolution against process.cwd()', () => {
+		const filter = createFilter(['y*'], ['yx'], { resolve: false });
+		const basePath = path.resolve('C/d');
+		expect(filter('x')).toBeFalsy();
+		expect(filter('ys')).toBeTruthy();
+		expect(filter('yx')).toBeFalsy();
+		expect(filter(path.resolve('C') + '/ys')).toBeFalsy();
+		expect(filter(path.resolve('C/d/ys'))).toBeFalsy();
+		expect(filter(path.resolve('ys'))).toBeFalsy();
+	});
 });
