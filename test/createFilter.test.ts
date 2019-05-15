@@ -100,11 +100,4 @@ describe('createFilter', function() {
 		expect(filter(path.resolve('C/d/ys'))).toBeFalsy();
 		expect(filter(path.resolve('ys'))).toBeFalsy();
 	});
-
-	it('allows matching virtual modules', () => {
-		const filter = createFilter(['\0virtual/**/a'], null, { resolve: false });
-		expect(filter('\0virtual/module/a')).toBeTruthy();
-		expect(filter('\0virtual/module/a/y')).toBeFalsy();
-		expect(filter('\0virtual/module/b/a')).toBeTruthy();
-	});
 });

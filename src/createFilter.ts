@@ -30,7 +30,7 @@ const createFilter: CreateFilter = function createFilter(include?, exclude?, opt
 
 	return function(id: string | any): boolean {
 		if (typeof id !== 'string') return false;
-		if (resolutionBase !== false && /\0/.test(id)) return false;
+		if (/\0/.test(id)) return false;
 
 		id = id.split(sep).join('/');
 

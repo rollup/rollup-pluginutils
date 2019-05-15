@@ -99,16 +99,7 @@ var filter = createFilter( options.include, options.exclude, {resolve: '/my/base
 If `resolve` is a string, then this value will be used as the base directory.
 Relative paths will be resolved against `process.cwd()` first. If `resolve` is
 `false`, then the patterns will not be resolved against any directory. This can
-be useful if you want to create a filter for virtual module names. Only if
-resolve is `false`, `createFilter` will also match plugin specific ids that
-start with `\0`:
-
-```js
-var filter = createFilter( ['\0virtual/**/a'], null, {resolve: false} );
-console.log(filter('\0virtual/module/a')); // true
-console.log(filter('\0virtual/module/a/b')); // false
-console.log(filter('\0virtual/module/b/a')); // true
-```
+be useful if you want to create a filter for virtual module names.
 
 
 ### makeLegalIdentifier
