@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 2.7.0
+*2019-05-15*
+* Add `resolve` option to createFilter ([#59](https://github.com/rollup/rollup-pluginutils/issues/59))
+
 ## 2.6.0
 *2019-04-04*
 * Add `extractAssignedNames` ([#59](https://github.com/rollup/rollup-pluginutils/issues/59))
