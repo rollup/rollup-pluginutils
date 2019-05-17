@@ -92,12 +92,17 @@ describe('createFilter', function() {
 
 	it('allows preventing resolution against process.cwd()', () => {
 		const filter = createFilter(['y*'], ['yx'], { resolve: false });
-		const basePath = path.resolve('C/d');
 		expect(filter('x')).toBeFalsy();
 		expect(filter('ys')).toBeTruthy();
 		expect(filter('yx')).toBeFalsy();
 		expect(filter(path.resolve('C') + '/ys')).toBeFalsy();
 		expect(filter(path.resolve('C/d/ys'))).toBeFalsy();
 		expect(filter(path.resolve('ys'))).toBeFalsy();
+	});
+
+	it('includes names starting with a "."', () => {
+		const filter = createFilter(['**/*a']);
+		expect(filter(path.resolve('.a'))).toBeTruthy();
+		expect(filter(path.resolve('.x/a'))).toBeTruthy();
 	});
 });
