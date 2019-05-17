@@ -20,7 +20,8 @@ const createFilter: CreateFilter = function createFilter(include?, exclude?, opt
 					test: mm.matcher(
 						getMatcherString(id, resolutionBase)
 							.split(sep)
-							.join('/')
+							.join('/'),
+						{ dot: true }
 					)
 			  };
 	};
