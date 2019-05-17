@@ -3,11 +3,19 @@ import { resolve, sep } from 'path';
 import { CreateFilter } from './pluginutils';
 import ensureArray from './utils/ensureArray';
 
+function sanitizeResolutionBase(resolutionBase: string): string {
+	return resolutionBase.replace(/[()]/g, '\\$&');
+}
+
 function getMatcherString(id: string, resolutionBase: string | false | null | undefined) {
-	if (resolutionBase === false) {
-		return id;
-	}
-	return resolve(...(typeof resolutionBase === 'string' ? [resolutionBase, id] : [id]));
+	return resolutionBase === false
+		? id
+		: resolve(
+				sanitizeResolutionBase(
+					typeof resolutionBase === 'string' ? resolve(resolutionBase) : process.cwd()
+				),
+				id
+		  );
 }
 
 const createFilter: CreateFilter = function createFilter(include?, exclude?, options?) {

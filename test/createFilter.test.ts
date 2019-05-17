@@ -105,4 +105,25 @@ describe('createFilter', function() {
 		expect(filter(path.resolve('.a'))).toBeTruthy();
 		expect(filter(path.resolve('.x/a'))).toBeTruthy();
 	});
+
+	it('escapes special characters in the base dir', () => {
+		const filter = createFilter(['a*'], null, { resolve: 'a()' });
+		expect(filter(path.resolve('a()/ab'))).toBeTruthy();
+	});
+
+	it('escapes special characters in the current working dir', () => {
+		const currentDir = process.cwd();
+		process.chdir(path.resolve(__dirname, 'special (characters)'));
+		const filter = createFilter(['a*']);
+		expect(filter(path.resolve('ab'))).toBeTruthy();
+		process.chdir(currentDir);
+	});
+
+	it('escapes special characters in both the base dir and the current working dir', () => {
+		const currentDir = process.cwd();
+		process.chdir(path.resolve(__dirname, 'special (characters)'));
+		const filter = createFilter(['a*'], null, { resolve: 'a()' });
+		expect(filter(path.resolve('a()/ab'))).toBeTruthy();
+		process.chdir(currentDir);
+	});
 });
