@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 2.7.1
+*2019-05-17*
+* Do not ignore files with a leading "." in createFilter ([#62](https://github.com/rollup/rollup-pluginutils/issues/62))
+
 ## 2.7.0
 *2019-05-15*
 * Add `resolve` option to createFilter ([#59](https://github.com/rollup/rollup-pluginutils/issues/59))
