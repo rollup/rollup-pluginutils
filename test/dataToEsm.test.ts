@@ -32,7 +32,7 @@ describe('dataToEsm', function() {
 				{ compact: true, objectShorthand: false }
 			)
 		).toEqual(
-			'export var some={deep:{object:"definition",here:"here"}};export default{some:some,else:{deep:{object:"definition",here:"here"}}};'
+			'export var some={deep:{object:"definition",here:"here"}};export default{some:some,"else":{deep:{object:"definition",here:"here"}}};'
 		);
 	});
 
