@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { createFilter } from '../src/index';
+import { createFilter } from '..';
 
 describe('createFilter', function() {
 	it('includes by default', function() {

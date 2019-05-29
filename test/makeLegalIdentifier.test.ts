@@ -1,4 +1,4 @@
-import { makeLegalIdentifier } from '../src/index';
+import { makeLegalIdentifier } from '..';
 
 describe('makeLegalIdentifier', function() {
 	it('camel-cases names', function() {
