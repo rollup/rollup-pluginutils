@@ -1,4 +1,4 @@
-import * as mm from 'micromatch';
+import mm from 'micromatch';
 import { resolve, sep } from 'path';
 import { CreateFilter } from './pluginutils';
 import ensureArray from './utils/ensureArray';

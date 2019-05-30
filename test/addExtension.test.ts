@@ -1,4 +1,4 @@
-import { addExtension } from '../src/index';
+import { addExtension } from '..';
 
 describe('addExtension', function() {
 	it('adds .js to an ID without an extension', function() {

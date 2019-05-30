@@ -1,4 +1,4 @@
-import { extractAssignedNames } from '../src/index';
+import { extractAssignedNames } from '..';
 
 describe('extractAssignedNames', function() {
 	it('extracts an Identifier', function() {

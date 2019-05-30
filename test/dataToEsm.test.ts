@@ -1,4 +1,4 @@
-import { dataToEsm } from '../src/index';
+import { dataToEsm } from '..';
 
 describe('dataToEsm', function() {
 	it('outputs treeshakeable data', function() {

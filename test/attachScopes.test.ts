@@ -1,4 +1,4 @@
-import { attachScopes } from '../src/index';
+import { attachScopes } from '..';
 
 describe('attachScopes', function() {
 	it('attaches a scope to the top level', function() {
