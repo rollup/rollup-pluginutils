@@ -7,7 +7,7 @@ export default {
 	input: 'src/index.ts',
 	plugins: [
 		resolve(),
-		commonjs({ include: 'node_modules/**', namedExports: { micromatch: ['matcher'] } }),
+		commonjs({ include: 'node_modules/**' }),
 		typescript({ include: '**/*.{ts,js}' })
 	],
 	external: ['estree-walker', 'path', 'util'],
