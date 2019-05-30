@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 2.8.0
+*2019-05-30*
+* Bundle updated micromatch dependency ([#60](https://github.com/rollup/rollup-pluginutils/issues/60))
+
 ## 2.7.1
 *2019-05-17*
 * Do not ignore files with a leading "." in createFilter ([#62](https://github.com/rollup/rollup-pluginutils/issues/62))
