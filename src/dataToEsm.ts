@@ -3,8 +3,8 @@ import { DataToEsm } from './pluginutils';
 
 export type Indent = string | null | undefined;
 
-function stringify (obj :any) :string {
-	return (JSON.stringify(obj) || 'undefined').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+function stringify(obj: any): string {
+	return (JSON.stringify(obj) || 'undefined').replace(/[\u2028\u2029]/g, char => `\\u${char.charCodeAt(0).toString(16).padStart(4, '0')}`);
 }
 
 function serializeArray<T>(arr: Array<T>, indent: Indent, baseIndent: string): string {

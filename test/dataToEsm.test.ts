@@ -80,9 +80,9 @@ describe('dataToEsm', function() {
 		);
 	});
 
-	it('avoid U+2029 U+2029 -0 be ignored by JSON.stringify', function() {
-		expect(dataToEsm([-0, '\u2028\u2029'], { compact: true })).toEqual(
-			'export default[-0,"\\u2028\\u2029"];'
+	it('avoid U+2029 U+2029 -0 be ignored by JSON.stringify, and avoid it return non-string (undefined) before replacing', function() {
+		expect(dataToEsm([-0, '\u2028\u2029', undefined, function() {}], { compact: true })).toEqual(
+			'export default[-0,"\\u2028\\u2029",undefined,undefined];'
 		);
 	});
 });
