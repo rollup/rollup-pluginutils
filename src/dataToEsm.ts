@@ -4,7 +4,7 @@ import { DataToEsm } from './pluginutils';
 export type Indent = string | null | undefined;
 
 function stringify(obj: any): string {
-	return (JSON.stringify(obj) || 'undefined').replace(/[\u2028\u2029]/g, char => `\\u${char.charCodeAt(0).toString(16).padStart(4, '0')}`);
+	return (JSON.stringify(obj) || 'undefined').replace(/[\u2028\u2029]/g, char => `\\u${('000' + char.charCodeAt(0).toString(16)).slice(-4)}`);
 }
 
 function serializeArray<T>(arr: Array<T>, indent: Indent, baseIndent: string): string {
