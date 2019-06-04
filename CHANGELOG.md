@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 2.8.1
+*2019-06-04*
+* Support serialization of many edge cases ([#64](https://github.com/rollup/rollup-pluginutils/issues/64))
+
 ## 2.8.0
 *2019-05-30*
 * Bundle updated micromatch dependency ([#60](https://github.com/rollup/rollup-pluginutils/issues/60))
