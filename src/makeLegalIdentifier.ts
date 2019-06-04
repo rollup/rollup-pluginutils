@@ -15,7 +15,7 @@ export const makeLegalIdentifier: MakeLegalIdentifier = function makeLegalIdenti
 		str = `_${str}`;
 	}
 
-	return str;
+	return str || '_';
 };
 
 export { makeLegalIdentifier as default };

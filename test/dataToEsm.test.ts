@@ -15,8 +15,8 @@ describe('dataToEsm', function() {
 
 	it('supports non-JSON data', function() {
 		const date = new Date();
-		expect(dataToEsm({ inf: Infinity, date, number: NaN, regexp: /.*/ })).toEqual(
-			'export var inf = Infinity;\nexport var date = new Date(' +
+		expect(dataToEsm({ inf: -Infinity, date, number: NaN, regexp: /.*/ })).toEqual(
+			'export var inf = -Infinity;\nexport var date = new Date(' +
 				date.getTime() +
 				');\nexport var number = NaN;\nexport var regexp = /.*/;\nexport default {\n\tinf: inf,\n\tdate: date,\n\tnumber: number,\n\tregexp: regexp\n};\n'
 		);
@@ -28,11 +28,11 @@ describe('dataToEsm', function() {
 		).toEqual('export var some="data";export var another="data";export default{some,another};');
 		expect(
 			dataToEsm(
-				{ some: { deep: { object: 'definition', here: 'here' } }, another: 'data' },
+				{ some: { deep: { object: 'definition', here: 'here' } }, else: { deep: { object: 'definition', here: 'here' } } },
 				{ compact: true, objectShorthand: false }
 			)
 		).toEqual(
-			'export var some={deep:{object:"definition",here:"here"}};export var another="data";export default{some:some,another:another};'
+			'export var some={deep:{object:"definition",here:"here"}};export default{some:some,"else":{deep:{object:"definition",here:"here"}}};'
 		);
 	});
 
@@ -67,7 +67,7 @@ describe('dataToEsm', function() {
 	});
 
 	it('exports default only for null', function() {
-		expect(dataToEsm(null)).toEqual('export default null;');
+		expect(dataToEsm(null, { compact: true })).toEqual('export default null;');
 	});
 
 	it('exports default only for primitive values', function() {
@@ -77,6 +77,12 @@ describe('dataToEsm', function() {
 	it('supports empty keys', function() {
 		expect(dataToEsm({ a: 'x', '': 'y' })).toEqual(
 			'export var a = "x";\nexport default {\n\ta: a,\n' + '\t"": "y"\n};\n'
+		);
+	});
+
+	it('avoid U+2029 U+2029 -0 be ignored by JSON.stringify, and avoid it return non-string (undefined) before replacing', function() {
+		expect(dataToEsm([-0, '\u2028\u2029', undefined, function() {}], { compact: true })).toEqual(
+			'export default[-0,"\\u2028\\u2029",undefined,undefined];'
 		);
 	});
 });

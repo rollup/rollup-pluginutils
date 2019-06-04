@@ -3,6 +3,10 @@ import { DataToEsm } from './pluginutils';
 
 export type Indent = string | null | undefined;
 
+function stringify(obj: any): string {
+	return (JSON.stringify(obj) || 'undefined').replace(/[\u2028\u2029]/g, char => `\\u${('000' + char.charCodeAt(0).toString(16)).slice(-4)}`);
+}
+
 function serializeArray<T>(arr: Array<T>, indent: Indent, baseIndent: string): string {
 	let output = '[';
 	const separator = indent ? '\n' + baseIndent + indent : '';
@@ -19,7 +23,7 @@ function serializeObject<T>(obj: { [key: string]: T }, indent: Indent, baseInden
 	const keys = Object.keys(obj);
 	for (let i = 0; i < keys.length; i++) {
 		const key = keys[i];
-		const stringKey = makeLegalIdentifier(key) === key ? key : JSON.stringify(key);
+		const stringKey = makeLegalIdentifier(key) === key ? key : stringify(key);
 		output += `${i > 0 ? ',' : ''}${separator}${stringKey}:${indent ? ' ' : ''}${serialize(
 			obj[key],
 			indent,
@@ -31,13 +35,15 @@ function serializeObject<T>(obj: { [key: string]: T }, indent: Indent, baseInden
 
 function serialize(obj: any, indent: Indent, baseIndent: string): string {
 	if (obj === Infinity) return 'Infinity';
+	if (obj === -Infinity) return '-Infinity';
+	if (obj === 0 && 1/obj === -Infinity) return '-0';
 	if (obj instanceof Date) return 'new Date(' + obj.getTime() + ')';
 	if (obj instanceof RegExp) return obj.toString();
-	if (typeof obj === 'number' && isNaN(obj)) return 'NaN';
+	if (obj !== obj) return 'NaN';
 	if (Array.isArray(obj)) return serializeArray(obj, indent, baseIndent);
 	if (obj === null) return 'null';
 	if (typeof obj === 'object') return serializeObject(obj, indent, baseIndent);
-	return JSON.stringify(obj);
+	return stringify(obj);
 }
 
 const dataToEsm: DataToEsm = function dataToEsm(data, options = {}) {
@@ -50,9 +56,14 @@ const dataToEsm: DataToEsm = function dataToEsm(data, options = {}) {
 		options.namedExports === false ||
 		typeof data !== 'object' ||
 		Array.isArray(data) ||
+		data instanceof Date ||
+		data instanceof RegExp ||
 		data === null
-	)
-		return `export default${_}${serialize(data, options.compact ? null : t, '')};`;
+	) {
+		const code = serialize(data, options.compact ? null : t, '');
+		const __ = _ || (/^[{[\-\/]/.test(code) ? '' : ' ');
+		return `export default${__}${code};`;
+	}
 
 	let namedExportCode = '';
 	const defaultExportRows = [];
@@ -69,7 +80,7 @@ const dataToEsm: DataToEsm = function dataToEsm(data, options = {}) {
 			)};${n}`;
 		} else {
 			defaultExportRows.push(
-				`${JSON.stringify(key)}: ${serialize(data[key], options.compact ? null : t, '')}`
+				`${stringify(key)}:${_}${serialize(data[key], options.compact ? null : t, '')}`
 			);
 		}
 	}
