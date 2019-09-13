@@ -100,7 +100,7 @@ const attachScopes: AttachScopes = function attachScopes(ast, propertyName = 'sc
 			if (node.type === 'CatchClause') {
 				newScope = new Scope({
 					parent: scope,
-					params: [node.param],
+					params: node.param ? [node.param] : [],
 					block: true
 				});
 			}
