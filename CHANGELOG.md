@@ -1,5 +1,9 @@
 # rollup-pluginutils changelog
 
+## 2.8.2
+*2019-09-13*
+* Handle optional catch parameter in attachScopes ([#70](https://github.com/rollup/rollup-pluginutils/pulls/70))
+
 ## 2.8.1
 *2019-06-04*
 * Support serialization of many edge cases ([#64](https://github.com/rollup/rollup-pluginutils/issues/64))
