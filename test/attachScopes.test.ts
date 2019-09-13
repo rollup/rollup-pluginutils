@@ -586,4 +586,42 @@ describe('attachScopes', function() {
 			attachScopes(ast, 'scope');
 		}).not.toThrow();
 	});
+
+	it('supports catch without a parameter', function() {
+		const ast = {
+			"type": "Program",
+			"start": 0,
+			"end": 23,
+			"body": [
+			  {
+				"type": "TryStatement",
+				"start": 0,
+				"end": 23,
+				"block": {
+				  "type": "BlockStatement",
+				  "start": 4,
+				  "end": 10,
+				  "body": []
+				},
+				"handler": {
+				  "type": "CatchClause",
+				  "start": 11,
+				  "end": 23,
+				  "param": null,
+				  "body": {
+					"type": "BlockStatement",
+					"start": 17,
+					"end": 23,
+					"body": []
+				  }
+				},
+				"finalizer": null
+			  }
+			],
+			"sourceType": "script"
+		  };
+		expect(() => {
+			attachScopes(ast, 'scope');
+		}).not.toThrow();
+	});
 });
