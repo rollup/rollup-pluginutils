@@ -1,3 +1,7 @@
+# Moving
+
+We're moving this repository into the monorepo at rollup/plugin. Please stand by...
+
 # rollup-pluginutils
 
 A set of functions commonly used by Rollup plugins.
