@@ -1,6 +1,6 @@
-# Moving
+# Moved
 
-We're moving this repository into the monorepo at rollup/plugin. Please stand by...
+This package has moved and is now available at [@rollup/pluginutils](https://github.com/rollup/plugins). Please update your dependencies. This repository is no longer maintained.
 
 # rollup-pluginutils
 
